@@ -1,0 +1,14 @@
+{
+  "name": "react_task_5",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SPA application built with React, Redux Toolkit, RTK Query and Webpack",
+  "type": "module",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  }
+}
