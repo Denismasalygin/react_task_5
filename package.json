@@ -5,7 +5,8 @@
   "description": "SPA application built with React, Redux Toolkit, RTK Query and Webpack",
   "type": "module",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "webpack serve"
   },
   "author": "",
   "license": "ISC",

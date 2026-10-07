@@ -23,7 +23,13 @@ export default {
 
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'React Task 5',
+            template: './public/index.html',
         }),
     ],
+
+    devServer: {
+        port: 3000,
+        open: true,
+        static: false,
+    },
 };
