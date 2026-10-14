@@ -30,6 +30,16 @@
   font-size: 18px;
   font-weight: 700;
   font-family: 'DM Sans', sans-serif;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.startButton:hover {
+  color: #f4f4f4;
+  background-color: #6add0f;
+}
+
+.startButton:active {
+  background-color: #59b611;
 }
 
 .features {
