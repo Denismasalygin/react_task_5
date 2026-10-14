@@ -10,3 +10,17 @@ body {
 body {
     font-family: sans-serif;
 }
+
+.app {
+    min-height: 100vh;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.app--home {
+    background-color: #F0FEE2;
+}
+
+.main {
+    padding-top: 115px;
+}

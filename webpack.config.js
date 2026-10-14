@@ -55,7 +55,9 @@ export default {
     devServer: {
         port: 3000,
         open: true,
-        static: false,
+        static: {
+            directory: path.resolve('public'),
+        },
         historyApiFallback: true,
     },
 };
