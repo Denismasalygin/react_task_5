@@ -9,7 +9,7 @@ import {
 import Header from './components/header/Header.jsx';
 
 import Home from './pages/home/Home.jsx';
-import Contacts from './pages/Contacts.jsx';
+import Contacts from './pages/contact/Contacts.jsx';
 import Shop from './pages/Shop.jsx';
 import Cart from "./pages/Cart.jsx";
 

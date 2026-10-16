@@ -1,7 +1,7 @@
 import {NavLink} from 'react-router-dom';
 import styles from './Header.module.scss';
 import clsx from "clsx";
-import CartIcon from "../cart/CartIcon.jsx";
+import CartIcon from "../../../public/icons/cart/CartIcon.jsx";
 
 const getNavLinkClass = ({isActive}, activeClass = styles.navLinkActive) =>
     clsx(styles.navLink, {
@@ -10,7 +10,7 @@ const getNavLinkClass = ({isActive}, activeClass = styles.navLinkActive) =>
 
 function Header() {
     return (
-        <header className={styles.header}>
+        <header className={clsx("DmSans", styles.header)}>
             <nav className={styles.nav}>
                 <NavLink to="/" end className={getNavLinkClass}>
                     Главная

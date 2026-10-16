@@ -24,3 +24,50 @@ body {
 .main {
     padding-top: 115px;
 }
+
+.page {
+    padding: 120px 100px 130px 100px;
+}
+
+.pageIntro {
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+}
+
+.pageTitle {
+    color: #353640;
+    font-family: 'DM Serif Text', serif;
+    font-size: 64px;
+    margin: 0;
+}
+
+.DmSans {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.Button, .LimeButton {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+}
+
+.LimeButton {
+    background-color: #68D017;
+    color: #FFFFFF;
+}
+
+.LimeButton:hover {
+    background-color: #6add0f;
+}
+
+.LimeButton:active {
+    background-color: #59b611;
+}
+
+.Image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
