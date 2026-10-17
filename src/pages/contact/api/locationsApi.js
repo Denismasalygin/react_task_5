@@ -34,7 +34,30 @@ export const locationsApi = createApi({
                         lng: user.address.coordinates.lng,
                     })),
         }),
+
+        getShopUsers: builder.query({
+            query: ({ skip = 0, limit = 10 }) =>
+                `users?limit=${limit}&skip=${skip}&select=firstName,lastName,address,company`,
+
+            transformResponse: (data) => ({
+                total: data.total,
+                users: data.users.map((user) => ({
+                    id: user.id,
+                    name:
+                        user.company?.name ||
+                        `${user.firstName} ${user.lastName}`,
+                    city: user.address?.city || 'Неизвестный город',
+                    country: user.address?.country || 'Неизвестная страна',
+                    lat: user.address?.coordinates?.lat,
+                    lng: user.address?.coordinates?.lng,
+                })),
+            }),
+        }),
     }),
 });
 
-export const {useGetLocationsQuery} = locationsApi;
+export const {
+    useGetLocationsQuery,
+    useGetShopUsersQuery,
+    useLazyGetShopUsersQuery,
+} = locationsApi;

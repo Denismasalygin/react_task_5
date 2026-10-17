@@ -11,6 +11,10 @@ body {
     font-family: sans-serif;
 }
 
+h1, p {
+    margin: 0;
+}
+
 .app {
     min-height: 100vh;
     background-color: #ffffff;

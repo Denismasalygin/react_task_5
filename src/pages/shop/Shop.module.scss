@@ -1,0 +1,115 @@
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-bottom: 35px;
+}
+
+.mapButton {
+  border: none;
+  padding: 12px 33px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: 15px;
+  background: #F1F1F1;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.info {
+  padding: 30px;
+  display: grid;
+  gap: 10px;
+}
+
+.city {
+  font-size: 24px;
+  font-weight: 500;
+  color: #222222;
+}
+
+.country, .square, .price {
+  color: #9C9C9C;
+  font-size: 20px;
+}
+
+.country {
+  font-weight: 500;
+}
+
+.square, .price {
+  font-weight: 400;
+  display: flex;
+  gap: 10px;
+}
+
+.infoValue {
+  color: #222222;
+}
+
+.cartButton {
+  background-color: transparent;
+  border: 2px solid #68D017;
+  padding: 15px 45px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #222222;
+}
+
+.cartButton:hover {
+  border: 2px solid #71f305;
+  box-shadow: 0 0 24px rgb(0 0 0 / 10%);
+}
+
+.cartButton:active {
+  border: 2px solid #61c612;
+  box-shadow: 0 0 24px rgb(0 0 0 / 15%);
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0;
+}
+
+.error {
+  margin: 16px 0;
+  color: #b42318;
+}
+
+.endMessage {
+  padding: 24px 0;
+  text-align: center;
+  color: #777;
+}
+
+.mapWrapper {
+  margin-top: 24px;
+}
+
+.map {
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  border-radius: 15px;
+}

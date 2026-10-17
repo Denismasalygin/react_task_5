@@ -123,7 +123,7 @@ function Contacts() {
                                     <Link
                                         to="/shop"
                                         className={clsx("Button", "DmSans", styles.locationButton)}
-                                        aria-label={`Перейти в магазин`}
+                                        aria-label="Перейти в магазин"
                                     >
                                         Магазин
                                     </Link>
