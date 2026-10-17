@@ -1,0 +1,72 @@
+.filterButton {
+  background-color: transparent;
+  border: 1px solid #000000;
+  padding: 12px 8px 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.filterButton:hover {
+  border: 1px solid #68D017;
+  color: #6add0f;
+}
+
+.cityFilter {
+  position: relative;
+  width: fit-content;
+}
+
+.cityDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 1;
+  width: 240px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 6px;
+
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+          opacity 0.22s ease,
+          transform 0.22s ease,
+          visibility 0.22s ease;
+}
+
+.cityDropdownOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cityOption {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cityOption:hover {
+  background-color: #f0fee2;
+}
+
+.cityOptionActive {
+  background-color: #e4f8d5;
+  font-weight: 600;
+}

@@ -1,31 +1,40 @@
-const API_URL =
-    'https://dummyjson.com/users?limit=10&select=firstName,lastName,address,company';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-export async function fetchLocations() {
-    const response = await fetch(API_URL);
+export const locationsApi = createApi({
+    reducerPath: 'locationsApi',
 
-    if (!response.ok) {
-        throw new Error('Не удалось загрузить список локаций.');
-    }
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://dummyjson.com/',
+    }),
 
-    const data = await response.json();
+    endpoints: (builder) => ({
+        getLocations: builder.query({
+            query: () =>
+                'users?limit=10&select=firstName,lastName,address,company',
 
-    return data.users
-        .filter((user) => {
-            const coordinates = user.address?.coordinates;
+            transformResponse: (data) =>
+                data.users
+                    .filter((user) => {
+                        const coordinates = user.address?.coordinates;
 
-            return (
-                Number.isFinite(coordinates?.lat) &&
-                Number.isFinite(coordinates?.lng)
-            );
-        })
-        .map((user) => ({
-            id: user.id,
-            name: user.company?.name || `${user.firstName} ${user.lastName}`,
-            address: user.address.address,
-            city: user.address.city,
-            country: user.address.country,
-            lat: user.address.coordinates.lat,
-            lng: user.address.coordinates.lng,
-        }));
-}
+                        return (
+                            Number.isFinite(coordinates?.lat) &&
+                            Number.isFinite(coordinates?.lng)
+                        );
+                    })
+                    .map((user) => ({
+                        id: user.id,
+                        name:
+                            user.company?.name ||
+                            `${user.firstName} ${user.lastName}`,
+                        address: user.address.address,
+                        city: user.address.city,
+                        country: user.address.country,
+                        lat: user.address.coordinates.lat,
+                        lng: user.address.coordinates.lng,
+                    })),
+        }),
+    }),
+});
+
+export const {useGetLocationsQuery} = locationsApi;
