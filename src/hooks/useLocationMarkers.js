@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import mapMarkerSvg from '../../public/icons/mapMarker/MapMarkerIcon.js';
 
 /** Создаёт маркеры участков, обрабатывает клики и подстраивает масштаб карты */
 export function useLocationMarkers({locations, mapReady, mapRef, markersRef, onMarkerClick}) {
@@ -27,7 +28,13 @@ export function useLocationMarkers({locations, mapReady, mapRef, markersRef, onM
                     hintContent: location.name,
                 },
                 {
-                    preset: 'islands#greenDotIcon',
+                    iconLayout: window.ymaps.templateLayoutFactory.createClass(
+                        `<div class="custom-map-marker">${mapMarkerSvg}</div>`
+                    ),
+                    iconShape: {
+                        type: 'Rectangle',
+                        coordinates: [[0, 0], [25, 33]],
+                    },
                 }
             );
 
