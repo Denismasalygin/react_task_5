@@ -2,12 +2,21 @@ import {useEffect, useState} from 'react';
 import styles from './PlotModal.module.scss';
 import {getShopArea, getShopPrice, getShopImage} from '../../pages/shop/utils/shopHelpers.js';
 import clsx from 'clsx';
+import {useDispatch, useSelector} from "react-redux";
+import {addToCart, removeFromCart} from "../../store/cartSlice";
 
 function PlotModal({plot, onClose}) {
     const [isVisible, setIsVisible] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [displayPlot, setDisplayPlot] = useState(plot);
     const isModalVisible = isVisible && !isClosing;
+
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.items);
+
+    const isInCart = displayPlot
+        ? cartItems.some((item) => item.id === displayPlot.id)
+        : false;
 
     useEffect(() => {
         if (plot) {
@@ -150,9 +159,16 @@ function PlotModal({plot, onClose}) {
                     </dl>
                     <button
                         type="button"
-                        className={clsx("Button", "DmSans", styles.cartButton)}
+                        className={clsx('Button', 'DmSans', styles.cartButton)}
+                        onClick={() => {
+                            if (isInCart) {
+                                dispatch(removeFromCart(displayPlot.id));
+                            } else {
+                                dispatch(addToCart(displayPlot));
+                            }
+                        }}
                     >
-                        В корзину
+                        {isInCart ? 'Удалить из корзины' : 'В корзину'}
                     </button>
                 </div>
             </section>

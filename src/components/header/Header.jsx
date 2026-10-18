@@ -2,6 +2,7 @@ import {NavLink} from 'react-router-dom';
 import styles from './Header.module.scss';
 import clsx from "clsx";
 import CartIcon from "../../../public/icons/cart/CartIcon.jsx";
+import {useSelector} from "react-redux";
 
 const getNavLinkClass = ({isActive}, activeClass = styles.navLinkActive) =>
     clsx(styles.navLink, {
@@ -9,6 +10,7 @@ const getNavLinkClass = ({isActive}, activeClass = styles.navLinkActive) =>
     });
 
 function Header() {
+    const cartCount = useSelector((state) => state.cart.items.length);
     return (
         <header className={clsx("DmSans", styles.header)}>
             <nav className={styles.nav}>
@@ -35,9 +37,10 @@ function Header() {
                 <NavLink
                     to="/cart"
                     className={(props) => getNavLinkClass(props, styles.cartLinkActive)}
-                    title='Корзина'
+                    title={`Корзина: ${cartCount}`}
+                    aria-label={`Корзина, товаров: ${cartCount}`}
                 >
-                    <CartIcon/>
+                    <CartIcon count={cartCount} />
                 </NavLink>
             </nav>
         </header>

@@ -87,6 +87,20 @@
   box-shadow: 0 0 24px rgb(0 0 0 / 15%);
 }
 
+.cartDeleteButton {
+  border: 2px solid #f52840;
+}
+
+.cartDeleteButton:hover {
+  border: 2px solid #fd1431;
+  box-shadow: 0 0 24px rgb(0 0 0 / 10%);
+}
+
+.cartDeleteButton:active {
+  border: 2px solid #ff1832;
+  box-shadow: 0 0 24px rgb(0 0 0 / 15%);
+}
+
 .loader {
   display: flex;
   justify-content: center;

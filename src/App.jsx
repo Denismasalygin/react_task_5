@@ -11,7 +11,7 @@ import Header from './components/header/Header.jsx';
 import Home from './pages/home/Home.jsx';
 import Contacts from './pages/contact/Contacts.jsx';
 import Shop from './pages/shop/Shop.jsx';
-import Cart from "./pages/Cart.jsx";
+import Cart from "./pages/cart/Cart.jsx";
 
 function AppContent() {
     const {pathname} = useLocation();

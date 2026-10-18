@@ -16,6 +16,8 @@ import {filterAndSortShopItems, getShopMapLocations} from "./utils/shopSelectors
 import {getCities} from "../../utils/getCities";
 import {useShopItems} from "./hooks/useShopItems";
 import PlotModal from "../../components/PlotModal/PlotModal.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {addToCart, removeFromCart} from "../../store/cartSlice";
 
 function Shop() {
     const {
@@ -33,6 +35,14 @@ function Shop() {
     const [city, setCity] = useState('all');
     const [showMap, setShowMap] = useState(false);
     const [selectedPlot, setSelectedPlot] = useState(null);
+
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.items);
+
+    const cartIds = useMemo(
+        () => new Set(cartItems.map((item) => item.id)),
+        [cartItems]
+    );
 
     const cities = getCities(items);
 
@@ -136,6 +146,8 @@ function Shop() {
                                 items.length < total &&
                                 item.id === filteredItems[triggerIndex]?.id;
 
+                            const isInCart = cartIds.has(item.id);
+
                             return (
                                 <article
                                     key={item.id}
@@ -180,11 +192,21 @@ function Shop() {
                                             <span className={styles.infoValue}>₽</span>
                                         </p>
                                         <button
-                                            className={clsx("Button", "DmSans", styles.cartButton)}
-                                            aria-label="Добавить в корзину"
-                                            onClick={(event) => event.stopPropagation()}
+                                            type="button"
+                                            className={clsx('Button', 'DmSans', styles.cartButton, {
+                                                [styles.cartDeleteButton]: isInCart,
+                                            })}
+                                            onClick={(event) => {
+                                                event.stopPropagation();
+                                                if (isInCart) {
+                                                    dispatch(removeFromCart(item.id));
+                                                } else {
+                                                    dispatch(addToCart(item));
+                                                }
+
+                                            }}
                                         >
-                                            В корзину
+                                            {isInCart ? 'Удалить из корзины' : 'В корзину'}
                                         </button>
                                     </div>
                                 </article>
