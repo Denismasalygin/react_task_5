@@ -2,11 +2,11 @@ import {useMemo, useState} from 'react';
 import styles from './Contacts.module.scss';
 import clsx from "clsx";
 import SearchIcon from "../../../public/icons/search/SearchIcon.jsx";
-import { useGetLocationsQuery } from './api/locationsApi.js';
-import {useYandexMap} from "./hooks/useYandexMap";
+import { useGetLocationsQuery } from '../../api/locationsApi.js';
+import {useYandexMap} from "../../hooks/useYandexMap";
 import {filterLocations} from "./utils/filterLocations";
-import {getCities} from "./utils/getCities";
-import {useLocationMarkers} from "./hooks/useLocationMarkers";
+import {getCities} from "../../utils/getCities";
+import {useLocationMarkers} from "../../hooks/useLocationMarkers";
 import Loader from "../../components/Loader/Loader.jsx";
 import {Link} from "react-router-dom";
 import SortButton from "../../components/SortButton/SortButton.jsx";
@@ -14,7 +14,7 @@ import CityFilter from "../../components/CityFilter/CityFilter.jsx";
 
 function Contacts() {
     const [search, setSearch] = useState('');
-    const [sortBy, setSortBy] = useState('asc');
+    const [sortBy, setSortBy] = useState(null);
     const [city, setCity] = useState('all');
     const {
         data: locations = [],
@@ -79,9 +79,11 @@ function Contacts() {
                         <SortButton
                             sortBy={sortBy}
                             onSortChange={() =>
-                                setSortBy((current) =>
-                                    current === 'asc' ? 'desc' : 'asc'
-                                )
+                                setSortBy((current) => {
+                                    if (current === null) return 'asc';
+                                    if (current === 'asc') return 'desc';
+                                    return null;
+                                })
                             }
                         />
 

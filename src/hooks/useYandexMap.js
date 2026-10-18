@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import { loadYandexMaps } from '../utils/loadYandexMaps.js';
+import { loadYandexMaps } from '../pages/contact/utils/loadYandexMaps.js';
 
 
 /** Загружает API Яндекс Карт, создаёт карту и коллекцию маркеров, очищает карту при размонтировании */

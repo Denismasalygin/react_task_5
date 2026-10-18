@@ -1,136 +1,46 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import clsx from 'clsx';
-
 import styles from './Shop.module.scss';
-
 import SortButton from '../../components/SortButton/SortButton.jsx';
 import CityFilter from '../../components/CityFilter/CityFilter.jsx';
 import Loader from '../../components/Loader/Loader.jsx';
-
-import { useLazyGetShopUsersQuery } from '../contact/api/locationsApi.js';
-import { useYandexMap } from '../contact/hooks/useYandexMap';
-import { useLocationMarkers } from '../contact/hooks/useLocationMarkers';
-
+import { useYandexMap } from '../../hooks/useYandexMap';
+import { useLocationMarkers } from '../../hooks/useLocationMarkers';
 import {
     getShopArea,
     getShopPrice,
     getShopImage,
 } from './utils/shopHelpers.js';
 import MapIcon from "../../../public/icons/map/MapIcon.jsx";
-import {Link} from "react-router-dom";
-
-const PAGE_SIZE = 10;
+import {filterAndSortShopItems, getShopMapLocations} from "./utils/shopSelectors";
+import {getCities} from "../../utils/getCities";
+import {useShopItems} from "./hooks/useShopItems";
 
 function Shop() {
-    const [items, setItems] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [sortBy, setSortBy] = useState('asc');
+    const {
+        items,
+        hasMore,
+        isFetching,
+        isError,
+        error,
+        retryLoading,
+        setObserverTarget,
+        total,
+    } = useShopItems();
+
+    const [sortBy, setSortBy] = useState(null);
     const [city, setCity] = useState('all');
     const [showMap, setShowMap] = useState(false);
-    const [observerTarget, setObserverTarget] = useState(null);
 
-    const inFlightRef = useRef(false);
-    const totalRef = useRef(0);
+    const cities = getCities(items);
 
-    const [
-        fetchShopUsers,
-        { isFetching, isError, error },
-    ] = useLazyGetShopUsersQuery();
-
-    const loadPage = useCallback(async (skip) => {
-        if (inFlightRef.current || (skip > 0 && skip >= totalRef.current)) {
-            return;
-        }
-
-        inFlightRef.current = true;
-
-        try {
-            const result = await fetchShopUsers({
-                skip,
-                limit: PAGE_SIZE,
-            }).unwrap();
-
-            totalRef.current = result.total;
-            setTotal(result.total);
-
-            setItems((current) => {
-                const existingIds = new Set(current.map((item) => item.id));
-
-                const nextItems = result.users
-                    .filter((item) => !existingIds.has(item.id))
-                    .map((item, index) => ({
-                        ...item,
-                        imageIndex: skip + index,
-                    }));
-
-                return skip === 0 ? nextItems : [...current, ...nextItems];
-            });
-        } catch (err) {
-            console.error('Не удалось загрузить участки:', err);
-        } finally {
-            inFlightRef.current = false;
-        }
-    }, [fetchShopUsers]);
-
-    useEffect(() => {
-        loadPage(0);
-    }, [loadPage]);
-
-    const hasMore = items.length < total;
-
-    useEffect(() => {
-        if (!observerTarget || !hasMore || isFetching) {
-            return;
-        }
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    loadPage(items.length);
-                }
-            },
-            {
-                rootMargin: '200px',
-                threshold: 0.1,
-            }
-        );
-
-        observer.observe(observerTarget);
-
-        return () => observer.disconnect();
-    }, [observerTarget, hasMore, isFetching, items.length, loadPage]);
-
-    const cities = useMemo(
-        () => [...new Set(items.map((item) => item.city))].sort(),
-        [items]
+    const filteredItems = useMemo(
+        () => filterAndSortShopItems(items, city, sortBy),
+        [items, city, sortBy]
     );
 
-    const filteredItems = useMemo(() => {
-        const result = items.filter(
-            (item) => city === 'all' || item.city === city
-        );
-
-        return result.sort((a, b) => {
-            const priceA = getShopPrice(a.id);
-            const priceB = getShopPrice(b.id);
-
-            return sortBy === 'asc'
-                ? priceA - priceB
-                : priceB - priceA;
-        });
-    }, [items, city, sortBy]);
-
     const mapLocations = useMemo(
-        () => filteredItems
-            .filter(
-                (item) =>
-                    Number.isFinite(item.lat) &&
-                    Number.isFinite(item.lng)
-            )
-            .map((item) => ({
-                ...item,
-                name: `Участок — ${item.city}`,
-            })),
+        () => getShopMapLocations(filteredItems),
         [filteredItems]
     );
 
@@ -155,10 +65,15 @@ function Shop() {
                 <SortButton
                     sortBy={sortBy}
                     onSortChange={() =>
-                        setSortBy((current) =>
-                            current === 'asc' ? 'desc' : 'asc'
-                        )
+                        setSortBy((current) => {
+                            if (current === null) return 'asc';
+                            if (current === 'asc') return 'desc';
+                            return null;
+                        })
                     }
+                    titleAsc="По возрастанию цены"
+                    titleDesc="По убыванию цены"
+                    titleOff="Сортировка выключена"
                 />
 
                 <CityFilter
@@ -183,7 +98,7 @@ function Shop() {
                     'Не удалось загрузить участки. Попробуйте ещё раз.'}
                     <button
                         type="button"
-                        onClick={() => loadPage(items.length)}
+                        onClick={retryLoading}
                     >
                         Повторить
                     </button>

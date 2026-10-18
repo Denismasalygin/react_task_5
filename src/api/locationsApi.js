@@ -58,6 +58,5 @@ export const locationsApi = createApi({
 
 export const {
     useGetLocationsQuery,
-    useGetShopUsersQuery,
     useLazyGetShopUsersQuery,
 } = locationsApi;
