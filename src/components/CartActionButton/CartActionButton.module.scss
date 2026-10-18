@@ -1,0 +1,31 @@
+.cartButton {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #68d017;
+  background: transparent;
+  color: #222222;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cartButton:hover {
+  border-color: #71f305;
+  box-shadow: 0 0 24px rgb(0 0 0 / 10%);
+}
+
+.cartButton:active {
+  border-color: #61c612;
+  box-shadow: 0 0 24px rgb(0 0 0 / 15%);
+}
+
+.inCart {
+  border-color: #f52840;
+}
+
+.inCart:hover {
+  border-color: #f10925;
+}
+
+.inCart:active {
+  border-color: #9d0616;
+}
