@@ -106,7 +106,7 @@ function Contacts() {
                             <article className={styles.locationCard} key={location.id}>
                                 <img
                                     className={clsx("Image", styles.locationImage)}
-                                    src="/images/ranch.png"
+                                    src="images/ranch.png"
                                     alt="Грядки овощей на поле"
                                     loading="lazy"
                                 />

@@ -22,7 +22,7 @@ function Home() {
                 <article className={styles.featureCard}>
                     <img
                         className="Image"
-                        src="/images/vegetables.jpg"
+                        src="images/vegetables.jpg"
                         alt="Овощи на грядке"
                         loading="lazy"
                     />
@@ -36,7 +36,7 @@ function Home() {
                 <article className={styles.featureCard}>
                     <img
                         className="Image"
-                        src="/images/tomato.jpg"
+                        src="images/tomato.jpg"
                         alt="Спелые красные помидоры"
                         loading="lazy"
                     />
@@ -50,7 +50,7 @@ function Home() {
                 <article className={styles.featureCard}>
                     <img
                         className="Image"
-                        src="/images/sprout.jpg"
+                        src="images/sprout.jpg"
                         alt="Молодой росток растения"
                         loading="lazy"
                     />
