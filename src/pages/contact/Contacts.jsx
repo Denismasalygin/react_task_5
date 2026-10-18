@@ -7,10 +7,10 @@ import {useYandexMap} from "../../hooks/useYandexMap";
 import {filterLocations} from "./utils/filterLocations";
 import {getCities} from "../../utils/getCities";
 import {useLocationMarkers} from "../../hooks/useLocationMarkers";
-import Loader from "../../components/Loader/Loader.jsx";
+import Loader from "../../components/loader/Loader.jsx";
 import {Link} from "react-router-dom";
-import SortButton from "../../components/SortButton/SortButton.jsx";
-import CityFilter from "../../components/CityFilter/CityFilter.jsx";
+import SortButton from "../../components/sortButton/SortButton.jsx";
+import CityFilter from "../../components/сityFilter/CityFilter.jsx";
 
 function Contacts() {
     const [search, setSearch] = useState('');

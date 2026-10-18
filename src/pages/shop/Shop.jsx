@@ -1,13 +1,13 @@
 import {useMemo, useState} from 'react';
 import styles from './Shop.module.scss';
-import Loader from '../../components/Loader/Loader.jsx';
+import Loader from '../../components/loader/Loader.jsx';
 import {filterAndSortShopItems} from "./utils/shopSelectors";
 import {getCities} from "../../utils/getCities";
 import {useShopItems} from "./hooks/useShopItems";
-import PlotModal from "../../components/PlotModal/PlotModal.jsx";
-import ShopControls from '../../components/ShopControls/ShopControls.jsx';
-import PlotCard from '../../components/PlotCard/PlotCard.jsx';
-import PlotMap from '../../components/PlotMap/PlotMap.jsx';
+import PlotModal from "../../components/plotModal/PlotModal.jsx";
+import ShopControls from '../../components/shopControls/ShopControls.jsx';
+import PlotCard from '../../components/plotCard/PlotCard.jsx';
+import PlotMap from '../../components/plotMap/PlotMap.jsx';
 
 function Shop() {
     const {

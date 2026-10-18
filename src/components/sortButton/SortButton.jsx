@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import styles from './SortButton.module.scss';
-
 import AscSortIcon from '../../../public/icons/ascSort/AscSortIcon.jsx';
 import DescSortIcon from '../../../public/icons/descSort/DescSortIcon.jsx';
+import Tooltip from "../tooltip/Tooltip.jsx";
 
 function SortButton({
         sortBy,
@@ -28,20 +28,17 @@ function SortButton({
             : 'Включить сортировку';
 
     return (
-        <button
-            type="button"
-            className={clsx(
-                'Button',
-                styles.sortButton,
-                isActive && styles.active
-            )}
-            onClick={onSortChange}
-            aria-label={ariaLabel}
-            aria-pressed={isActive}
-            data-tooltip={tooltipText}
-        >
-            {isDescending ? <DescSortIcon /> : <AscSortIcon />}
-        </button>
+        <Tooltip text={tooltipText}>
+            <button
+                type="button"
+                className={clsx('Button', styles.sortButton, {[styles.active]: isActive})}
+                onClick={onSortChange}
+                aria-label={ariaLabel}
+                aria-pressed={isActive}
+            >
+                {isDescending ? <DescSortIcon/> : <AscSortIcon/>}
+            </button>
+        </Tooltip>
     );
 }
 

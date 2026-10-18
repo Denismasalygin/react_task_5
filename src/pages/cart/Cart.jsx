@@ -1,10 +1,10 @@
 import {useMemo, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './Cart.module.scss';
-import ShopControls from '../../components/ShopControls/ShopControls.jsx';
-import PlotCard from '../../components/PlotCard/PlotCard.jsx';
-import PlotMap from '../../components/PlotMap/PlotMap.jsx';
-import PlotModal from '../../components/PlotModal/PlotModal.jsx';
+import ShopControls from '../../components/shopControls/ShopControls.jsx';
+import PlotCard from '../../components/plotCard/PlotCard.jsx';
+import PlotMap from '../../components/plotMap/PlotMap.jsx';
+import PlotModal from '../../components/plotModal/PlotModal.jsx';
 import {clearCart} from '../../store/cartSlice.js';
 import {getShopPrice} from '../shop/utils/shopHelpers.js';
 import {filterAndSortShopItems} from '../shop/utils/shopSelectors.js';

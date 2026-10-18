@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import styles from './PlotModal.module.scss';
 import {getShopArea, getShopPrice, getShopImage} from '../../pages/shop/utils/shopHelpers.js';
 import clsx from 'clsx';
-import CartActionButton from '../CartActionButton/CartActionButton.jsx';
+import CartActionButton from '../cartActionButton/CartActionButton.jsx';
 
 function PlotModal({plot, onClose}) {
     const [isVisible, setIsVisible] = useState(false);

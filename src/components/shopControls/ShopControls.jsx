@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import styles from './ShopControls.module.scss';
-import SortButton from '../SortButton/SortButton.jsx';
-import CityFilter from '../CityFilter/CityFilter.jsx';
+import SortButton from '../sortButton/SortButton.jsx';
+import CityFilter from '../сityFilter/CityFilter.jsx';
 import MapIcon from '../../../public/icons/map/MapIcon.jsx';
 
 function ShopControls({cities, city, onCityChange, sortBy, onSortChange, showMap, onToggleMap, onClearCart}) {

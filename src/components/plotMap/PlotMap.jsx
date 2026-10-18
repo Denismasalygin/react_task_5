@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import styles from './PlotMap.module.scss';
-import Loader from '../Loader/Loader.jsx';
+import Loader from '../loader/Loader.jsx';
 import { useYandexMap } from '../../hooks/useYandexMap.js';
 import { useLocationMarkers } from '../../hooks/useLocationMarkers.js';
 import { getShopMapLocations } from '../../pages/shop/utils/shopSelectors.js';
