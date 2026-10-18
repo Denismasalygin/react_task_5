@@ -2,13 +2,15 @@ import path from 'node:path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-    mode: 'development',
+    mode: 'production',
 
     entry: './src/index.jsx',
 
     output: {
         path: path.resolve('dist'),
         filename: 'bundle.js',
+        publicPath: 'auto',
+        clean: true,
     },
 
     module: {
