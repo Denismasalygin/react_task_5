@@ -1,23 +1,13 @@
-import {useCallback, useMemo, useState} from 'react';
-import clsx from 'clsx';
+import {useMemo, useState} from 'react';
 import styles from './Shop.module.scss';
-import SortButton from '../../components/SortButton/SortButton.jsx';
-import CityFilter from '../../components/CityFilter/CityFilter.jsx';
 import Loader from '../../components/Loader/Loader.jsx';
-import { useYandexMap } from '../../hooks/useYandexMap';
-import { useLocationMarkers } from '../../hooks/useLocationMarkers';
-import {
-    getShopArea,
-    getShopPrice,
-    getShopImage,
-} from './utils/shopHelpers.js';
-import MapIcon from "../../../public/icons/map/MapIcon.jsx";
-import {filterAndSortShopItems, getShopMapLocations} from "./utils/shopSelectors";
+import {filterAndSortShopItems} from "./utils/shopSelectors";
 import {getCities} from "../../utils/getCities";
 import {useShopItems} from "./hooks/useShopItems";
 import PlotModal from "../../components/PlotModal/PlotModal.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {addToCart, removeFromCart} from "../../store/cartSlice";
+import ShopControls from '../../components/ShopControls/ShopControls.jsx';
+import PlotCard from '../../components/PlotCard/PlotCard.jsx';
+import PlotMap from '../../components/PlotMap/PlotMap.jsx';
 
 function Shop() {
     const {
@@ -36,14 +26,6 @@ function Shop() {
     const [showMap, setShowMap] = useState(false);
     const [selectedPlot, setSelectedPlot] = useState(null);
 
-    const dispatch = useDispatch();
-    const cartItems = useSelector((state) => state.cart.items);
-
-    const cartIds = useMemo(
-        () => new Set(cartItems.map((item) => item.id)),
-        [cartItems]
-    );
-
     const cities = getCities(items);
 
     const filteredItems = useMemo(
@@ -51,92 +33,36 @@ function Shop() {
         [items, city, sortBy]
     );
 
-    const mapLocations = useMemo(
-        () => getShopMapLocations(filteredItems),
-        [filteredItems]
-    );
-
-    const {
-        mapElementRef,
-        mapRef,
-        markersRef,
-        mapReady,
-        mapError,
-    } = useYandexMap(showMap && mapLocations.length > 0);
-
-    const handleMarkerClick = useCallback((location) => {
-        setSelectedPlot(location);
-    }, []);
-
-    useLocationMarkers({
-        locations: mapLocations,
-        mapReady: showMap && mapReady,
-        mapRef,
-        markersRef,
-        onMarkerClick: handleMarkerClick,
-    });
-
     return (
         <section className="page">
-            <div className={styles.controls}>
-                <SortButton
-                    sortBy={sortBy}
-                    onSortChange={() =>
-                        setSortBy((current) => {
-                            if (current === null) return 'asc';
-                            if (current === 'asc') return 'desc';
-                            return null;
-                        })
-                    }
-                    titleAsc="По возрастанию цены"
-                    titleDesc="По убыванию цены"
-                    titleOff="Сортировка выключена"
-                />
-
-                <CityFilter
-                    cities={cities}
-                    city={city}
-                    onCityChange={setCity}
-                />
-
-                <button
-                    type="button"
-                    className={clsx("LimeButton", "DmSans", styles.mapButton)}
-                    onClick={() => setShowMap((current) => !current)}
-                    aria-pressed={showMap}
-                >
-                   <MapIcon /> <span>{showMap ? 'Каталог' : 'Карта'}</span>
-                </button>
-            </div>
+            <ShopControls
+                cities={cities}
+                city={city}
+                onCityChange={setCity}
+                sortBy={sortBy}
+                onSortChange={() =>
+                    setSortBy((current) => {
+                        if (current === null) return 'asc';
+                        if (current === 'asc') return 'desc';
+                        return null;
+                    })
+                }
+                showMap={showMap}
+                onToggleMap={() => setShowMap((current) => !current)}
+            />
 
             {isError && (
                 <p role="alert" className={styles.error}>
                     {error?.data?.message ||
                     'Не удалось загрузить участки. Попробуйте ещё раз.'}
-                    <button
-                        type="button"
-                        onClick={retryLoading}
-                    >
+                    <button type="button" onClick={retryLoading}>
                         Повторить
                     </button>
                 </p>
             )}
 
             {showMap ? (
-                <div className={styles.mapWrapper}>
-                    {mapError && <p role="alert">{mapError}</p>}
-                    <div
-                        className={styles.map}
-                        ref={mapElementRef}
-                        aria-label="Карта участков"
-                    />
-                    {!mapReady && !mapError && mapLocations.length > 0 && (
-                        <Loader text="Загружаем карту..." />
-                    )}
-                    {mapLocations.length === 0 && (
-                        <p>Нет участков с координатами для отображения.</p>
-                    )}
-                </div>
+                <PlotMap items={filteredItems} onMarkerClick={setSelectedPlot}/>
             ) : (
                 <>
                     <div className={styles.grid}>
@@ -146,70 +72,15 @@ function Shop() {
                                 items.length < total &&
                                 item.id === filteredItems[triggerIndex]?.id;
 
-                            const isInCart = cartIds.has(item.id);
-
                             return (
-                                <article
+                                <PlotCard
                                     key={item.id}
-                                    className={clsx("DmSans", styles.card)}
-                                    ref={isTrigger ? setObserverTarget : undefined}
-                                    onClick={() => setSelectedPlot(item)}
-                                    role="button"
-                                    tabIndex={0}
-                                    onKeyDown={(event) => {
-                                        if (event.key === 'Enter' || event.key === ' ') {
-                                            event.preventDefault();
-                                            setSelectedPlot(item);
-                                        }
-                                    }}
-                                >
-                                    <img
-                                        className={styles.image}
-                                        src={getShopImage(item.imageIndex)}
-                                        alt={`Земельный участок в ${item.city}`}
-                                        loading="lazy"
-                                    />
-
-                                    <div className={styles.info}>
-                                        <p className={styles.city}>
-                                            {item.city}
-                                        </p>
-                                        <p className={styles.country}>
-                                            {item.country}
-                                        </p>
-                                        <p className={styles.square}>
-                                            <span>Площадь:</span>
-                                            <span className={styles.infoValue}>
-                                                {getShopArea(item.id).toLocaleString('ru-RU')}
-                                            </span>
-                                            <span className={styles.infoValue}>м²</span>
-                                        </p>
-                                        <p className={styles.price}>
-                                            <span>Площадь:</span>
-                                            <span className={styles.infoValue}>
-                                                {getShopPrice(item.id).toLocaleString('ru-RU')}
-                                            </span>
-                                            <span className={styles.infoValue}>₽</span>
-                                        </p>
-                                        <button
-                                            type="button"
-                                            className={clsx('Button', 'DmSans', styles.cartButton, {
-                                                [styles.cartDeleteButton]: isInCart,
-                                            })}
-                                            onClick={(event) => {
-                                                event.stopPropagation();
-                                                if (isInCart) {
-                                                    dispatch(removeFromCart(item.id));
-                                                } else {
-                                                    dispatch(addToCart(item));
-                                                }
-
-                                            }}
-                                        >
-                                            {isInCart ? 'Удалить из корзины' : 'В корзину'}
-                                        </button>
-                                    </div>
-                                </article>
+                                    plot={item}
+                                    onSelect={setSelectedPlot}
+                                    observerRef={
+                                        isTrigger ? setObserverTarget : undefined
+                                    }
+                                />
                             );
                         })}
                     </div>
@@ -231,10 +102,7 @@ function Shop() {
                     )}
                 </>
             )}
-            <PlotModal
-                plot={selectedPlot}
-                onClose={() => setSelectedPlot(null)}
-            />
+            <PlotModal plot={selectedPlot} onClose={() => setSelectedPlot(null)}/>
         </section>
     );
 }
