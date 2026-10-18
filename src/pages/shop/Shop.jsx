@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import clsx from 'clsx';
 import styles from './Shop.module.scss';
 import SortButton from '../../components/SortButton/SortButton.jsx';
@@ -15,6 +15,7 @@ import MapIcon from "../../../public/icons/map/MapIcon.jsx";
 import {filterAndSortShopItems, getShopMapLocations} from "./utils/shopSelectors";
 import {getCities} from "../../utils/getCities";
 import {useShopItems} from "./hooks/useShopItems";
+import PlotModal from "../../components/PlotModal/PlotModal.jsx";
 
 function Shop() {
     const {
@@ -31,6 +32,7 @@ function Shop() {
     const [sortBy, setSortBy] = useState(null);
     const [city, setCity] = useState('all');
     const [showMap, setShowMap] = useState(false);
+    const [selectedPlot, setSelectedPlot] = useState(null);
 
     const cities = getCities(items);
 
@@ -52,11 +54,16 @@ function Shop() {
         mapError,
     } = useYandexMap(showMap && mapLocations.length > 0);
 
+    const handleMarkerClick = useCallback((location) => {
+        setSelectedPlot(location);
+    }, []);
+
     useLocationMarkers({
         locations: mapLocations,
         mapReady: showMap && mapReady,
         mapRef,
         markersRef,
+        onMarkerClick: handleMarkerClick,
     });
 
     return (
@@ -134,6 +141,15 @@ function Shop() {
                                     key={item.id}
                                     className={clsx("DmSans", styles.card)}
                                     ref={isTrigger ? setObserverTarget : undefined}
+                                    onClick={() => setSelectedPlot(item)}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                            event.preventDefault();
+                                            setSelectedPlot(item);
+                                        }
+                                    }}
                                 >
                                     <img
                                         className={styles.image}
@@ -166,6 +182,7 @@ function Shop() {
                                         <button
                                             className={clsx("Button", "DmSans", styles.cartButton)}
                                             aria-label="Добавить в корзину"
+                                            onClick={(event) => event.stopPropagation()}
                                         >
                                             В корзину
                                         </button>
@@ -192,6 +209,10 @@ function Shop() {
                     )}
                 </>
             )}
+            <PlotModal
+                plot={selectedPlot}
+                onClose={() => setSelectedPlot(null)}
+            />
         </section>
     );
 }

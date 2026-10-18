@@ -1,13 +1,14 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
-/** Удаляет старые маркеры, добавляет новые и подстраивает масштаб карты под найденные локации */
-export function useLocationMarkers({locations, mapReady, mapRef, markersRef}) {
+/** Создаёт маркеры участков, обрабатывает клики и подстраивает масштаб карты */
+export function useLocationMarkers({locations, mapReady, mapRef, markersRef, onMarkerClick}) {
     useEffect(() => {
         if (!mapReady || !markersRef.current || !window.ymaps) {
             return;
         }
 
         const markers = markersRef.current;
+        const markerHandlers = [];
 
         markers.removeAll();
 
@@ -16,10 +17,26 @@ export function useLocationMarkers({locations, mapReady, mapRef, markersRef}) {
                 [location.lat, location.lng],
                 {
                     balloonContentHeader: location.name,
-                    balloonContentBody: `${location.address}, ${location.city}, ${location.country}`,
+                    balloonContentBody: [
+                        location.address,
+                        location.city,
+                        location.country,
+                    ]
+                        .filter(Boolean)
+                        .join(', '),
                     hintContent: location.name,
+                },
+                {
+                    preset: 'islands#greenDotIcon',
                 }
             );
+
+            const handleClick = () => {
+                onMarkerClick?.(location);
+            };
+
+            marker.events.add('click', handleClick);
+            markerHandlers.push({ marker, handleClick });
 
             markers.add(marker);
         });
@@ -30,5 +47,11 @@ export function useLocationMarkers({locations, mapReady, mapRef, markersRef}) {
                 zoomMargin: 40,
             });
         }
-    }, [locations, mapReady, mapRef, markersRef]);
+
+        return () => {
+            markerHandlers.forEach(({ marker, handleClick }) => {
+                marker.events.remove('click', handleClick);
+            });
+        };
+    }, [locations, mapReady, mapRef, markersRef, onMarkerClick]);
 }
