@@ -15,7 +15,7 @@ function CityFilter({ cities, city, onCityChange }) {
         <div className={styles.cityFilter}>
             <button
                 type="button"
-                className={clsx("DmSans", "Button", styles.filterButton)}
+                className={clsx("Button", styles.filterButton)}
                 onClick={() => setIsOpen((open) => !open)}
                 aria-expanded={isOpen}
                 aria-label="Фильтр по городам"

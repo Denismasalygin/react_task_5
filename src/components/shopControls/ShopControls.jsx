@@ -24,7 +24,7 @@ function ShopControls({cities, city, onCityChange, sortBy, onSortChange, showMap
 
                 <button
                     type="button"
-                    className={clsx('LimeButton', 'DmSans', styles.mapButton)}
+                    className={clsx('LimeButton', styles.mapButton)}
                     onClick={onToggleMap}
                     aria-pressed={showMap}
                 >
@@ -36,7 +36,7 @@ function ShopControls({cities, city, onCityChange, sortBy, onSortChange, showMap
             {onClearCart && (
                 <button
                     type="button"
-                    className={clsx('Button', 'DmSans', styles.clearButton)}
+                    className={clsx('Button', styles.clearButton)}
                     onClick={onClearCart}
                 >
                     Очистить корзину

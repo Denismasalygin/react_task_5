@@ -13,7 +13,7 @@ const getNavLinkClass = ({isActive}, activeClass = styles.navLinkActive) =>
 function Header() {
     const cartCount = useSelector((state) => state.cart.items.length);
     return (
-        <header className={clsx("DmSans", styles.header)}>
+        <header className={styles.header}>
             <nav className={styles.nav}>
                 <NavLink to="/" end className={getNavLinkClass}>
                     Главная

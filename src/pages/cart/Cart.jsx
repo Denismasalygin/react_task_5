@@ -9,7 +9,6 @@ import {clearCart} from '../../store/cartSlice.js';
 import {getShopPrice} from '../shop/utils/shopHelpers.js';
 import {filterAndSortShopItems} from '../shop/utils/shopSelectors.js';
 import {getCities} from '../../utils/getCities.js';
-import clsx from "clsx";
 
 function Cart() {
     const dispatch = useDispatch();
@@ -79,12 +78,12 @@ function Cart() {
                     )}
 
                     <div className={styles.summary}>
-                        <p className={clsx("DmSans", styles.summaryDetails)}>
+                        <p className={styles.summaryDetails}>
                             <span>Участков:</span>
                             <span>{cartItems.length}</span>
                         </p>
 
-                        <p className={clsx("DmSans", styles.summaryDetails)}>
+                        <p className={styles.summaryDetails}>
                             <span>Общая стоимость:</span>
                             <span>
                                 {totalPrice.toLocaleString('ru-RU')}

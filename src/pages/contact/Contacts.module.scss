@@ -11,7 +11,7 @@
   max-width: 900px;
   max-height: 70px;
   margin: auto;
-  background-color: #EAEAEA;
+  background-color: var(--color-background-search);
 
   padding: 8px 10px 8px 20px;
   border-radius: 17px;
@@ -23,9 +23,9 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #353640;
+  color: var(--color-text-secondary);
 
-  font-size: 16px;
+  font-size: var(--font-size-16);
   font-weight: 400;
 }
 
@@ -37,7 +37,7 @@
 .searchButton {
   padding: 15px 40px;
   border: none;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   font-weight: 500;
 }
 
@@ -89,33 +89,33 @@
 
 .locationName {
   margin: 20px 0 0;
-  font-size: 24px;
+  font-size: var(--font-size-24);
   font-weight: 500;
 }
 
 .locationAddress {
-  font-size: 20px;
-  color: #9C9C9C;
+  font-size: var(--font-size-20);
+  color: var(--color-9C9C9C);
   margin: 0;
 }
 
 .locationButton {
     background-color: transparent;
-    border: 2px solid #68D017;
+    border: 2px solid var(--color-accent);
     padding: 15px 45px;
     font-size: 16px;
     font-weight: 500;
-    color: #222222;
+    color: var(--color-text);
     text-decoration: none;
 }
 
 .locationButton:hover {
-  border: 2px solid #71f305;
+  border: 2px solid var(--color-accent-hover);
   box-shadow: 0 0 24px rgb(0 0 0 / 10%);
 }
 
 .locationButton:active {
-  border: 2px solid #61c612;
+  border: 2px solid var(--color-accent-active);
   box-shadow: 0 0 24px rgb(0 0 0 / 15%);
 }
 
@@ -129,6 +129,5 @@
   height: 650px;
   overflow: hidden;
   border-radius: 15px;
-  background: #eeeeee;
+  background: var(--color-border-EEEEEE);
 }
-

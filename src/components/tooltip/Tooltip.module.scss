@@ -13,10 +13,10 @@
     max-width: 240px;
     padding: 9px 12px;
     border-radius: 8px;
-    background: #20231e;
-    color: #ffffff;
+    background: var(--color-background-tooltip);
+    color: var(--color-white);
 
-    font-size: 12px;
+    font-size: var(--font-size-12);
 
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
     pointer-events: none;

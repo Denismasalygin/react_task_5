@@ -2,7 +2,7 @@
   min-width: 0;
   overflow: hidden;
   border-radius: 15px;
-  background: #F1F1F1;
+  background: var(--color-background-cart);
   cursor: pointer;
 }
 
@@ -30,14 +30,14 @@
 }
 
 .city {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   font-weight: 500;
-  color: #222222;
+  color: var(--color-text);
 }
 
 .country {
-  color: #9c9c9c;
-  font-size: 20px;
+  color: var(--color-9C9C9C);
+  font-size: var(--font-size-20);
   font-weight: 500;
 }
 
@@ -45,12 +45,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: #9c9c9c;
-  font-size: 20px;
+  color: var(--color-9C9C9C);
+  font-size: var(--font-size-20);
 }
 
 .infoValue {
-  color: #222222;
+  color: var(--color-text);
 }
 
 .actions {

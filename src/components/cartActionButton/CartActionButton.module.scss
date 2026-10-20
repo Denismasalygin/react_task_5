@@ -1,31 +1,30 @@
 .cartButton {
   width: 100%;
   padding: 15px 20px;
-  border: 2px solid #68d017;
+  border: 2px solid var(--color-accent);
   background: transparent;
-  color: #222222;
-  font-size: 16px;
+  color: var(--color-text);
   font-weight: 500;
 }
 
 .cartButton:hover {
-  border-color: #71f305;
+  border-color: var(--color-accent-hover);
   box-shadow: 0 0 24px rgb(0 0 0 / 10%);
 }
 
 .cartButton:active {
-  border-color: #61c612;
+  border-color: var(--color-accent-active);
   box-shadow: 0 0 24px rgb(0 0 0 / 15%);
 }
 
 .inCart {
-  border-color: #f52840;
+  border-color: var(--color-danger);
 }
 
 .inCart:hover {
-  border-color: #f10925;
+  border-color:  var(--color-danger-hover);
 }
 
 .inCart:active {
-  border-color: #9d0616;
+  border-color: var(--color-danger-active);
 }

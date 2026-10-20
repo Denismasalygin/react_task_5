@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import styles from './PlotCard.module.scss';
 import {getShopArea, getShopPrice, getShopImage,} from '../../pages/shop/utils/shopHelpers.js';
 import CartActionButton from '../cartActionButton/CartActionButton.jsx';
@@ -6,7 +5,7 @@ import CartActionButton from '../cartActionButton/CartActionButton.jsx';
 function PlotCard({ plot, onSelect, observerRef }) {
     return (
         <article
-            className={clsx('DmSans', styles.card)}
+            className={styles.card}
             ref={observerRef}
         >
             <button
