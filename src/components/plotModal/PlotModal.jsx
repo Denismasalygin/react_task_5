@@ -124,8 +124,8 @@ function PlotModal({plot, onClose}) {
                             <dd>
                                 {getShopArea(displayPlot.id).toLocaleString(
                                     'ru-RU'
-                                )}{' '}
-                                м²
+                                )}
+                                <span>{'м\u00B2'}</span>
                             </dd>
                         </div>
 
@@ -134,8 +134,8 @@ function PlotModal({plot, onClose}) {
                             <dd>
                                 {getShopPrice(displayPlot.id).toLocaleString(
                                     'ru-RU'
-                                )}{' '}
-                                ₽
+                                )}
+                                <span>{'\u20BD'}</span>
                             </dd>
                         </div>
 

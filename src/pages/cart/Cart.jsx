@@ -79,16 +79,14 @@ function Cart() {
 
                     <div className={styles.summary}>
                         <p className={styles.summaryDetails}>
-                            <span>Участков:</span>
+                            Участков:
                             <span>{cartItems.length}</span>
                         </p>
 
                         <p className={styles.summaryDetails}>
-                            <span>Общая стоимость:</span>
-                            <span>
-                                {totalPrice.toLocaleString('ru-RU')}
-                            </span>
-                            <span>₽</span>
+                            Общая стоимость:
+                            <span>{totalPrice.toLocaleString('ru-RU')}</span>
+                            {'\u20BD'}
                         </p>
                     </div>
                 </>
