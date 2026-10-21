@@ -13,7 +13,7 @@
   max-width: 150px;
   margin: auto;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .features {
@@ -36,14 +36,14 @@
   right: 15px;
   bottom: 15px;
 
-  background-color: var(--color-white);
-  border: 2px solid var(--color-border-description);
+  background-color: var(--color-background);
+  border: 2px solid var(--color-border-muted);
   border-radius: 10px;
   padding: 15px 8px;
 
-  font-size: var(--font-size-24);
-  font-weight: 400;
   color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular);
 
   margin: 0;
 }

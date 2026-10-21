@@ -3,8 +3,8 @@
   padding: 15px 20px;
   border: 2px solid var(--color-accent);
   background: transparent;
-  color: var(--color-text);
-  font-weight: 500;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
 }
 
 .cartButton:hover {

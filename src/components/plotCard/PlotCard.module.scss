@@ -2,7 +2,7 @@
   min-width: 0;
   overflow: hidden;
   border-radius: 15px;
-  background: var(--color-background-cart);
+  background: var(--color-background-card);
   cursor: pointer;
 }
 
@@ -30,27 +30,27 @@
 }
 
 .city {
-  font-size: var(--font-size-24);
-  font-weight: 500;
-  color: var(--color-text);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
 }
 
 .country {
-  color: var(--color-9C9C9C);
-  font-size: var(--font-size-20);
-  font-weight: 500;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
 }
 
 .detail {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: var(--color-9C9C9C);
-  font-size: var(--font-size-20);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
 }
 
 .infoValue {
-  color: var(--color-text);
+  color: var(--color-text-primary);
 }
 
 .actions {

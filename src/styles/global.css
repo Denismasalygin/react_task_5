@@ -1,52 +1,60 @@
 :root {
-    /* Цвета */
+    /* Colors — accent */
     --color-accent: #68D017;
     --color-accent-hover: #6ADD0F;
     --color-accent-active: #59B611;
 
-    --color-danger: #f52840;
-    --color-danger-hover: #f10925;
-    --color-danger-active: #9d0616;
+    /* Colors — status */
+    --color-danger: #F52840;
+    --color-danger-hover: #F10925;
+    --color-danger-active: #9D0616;
 
-    --color-page-title: #353640;
-    --color-white: #FFFFFF;
-    --color-black: #000000;
-
-    --color-app-home: #F0FEE2;
-    --color-app: #FFFFFF;
-
-    --color-text: #222222;
+    /* Colors — text */
+    --color-text-primary: #222222;
     --color-text-secondary: #353640;
-    --color-text-endmessage: #777777;
+    --color-text-muted: #9C9C9C;
+    --color-text-inverse: #FFFFFF;
+    --color-text-message: #777777;
 
-    --color-loader-accent: #6add0f;
-    --color-loader-primary: #d9d9d9;
-
-    --color-9C9C9C: #9C9C9C;
-
-    --color-border-EEEEEE: #EEEEEE;
-    --color-border-e5e5e5: #e5e5e5;
-    --color-border-description: #DCDCDC;
-
-    --color-background-tooltip: #20231e;
+    /* Colors — background */
+    --color-background: #FFFFFF;
+    --color-background-home: #F0FEE2;
+    --color-background-card: #F1F1F1;
     --color-background-search: #EAEAEA;
-    --color-background-cart: #F1F1F1;
-    --color-background-map: #EEEEEE;
+    --color-background-tooltip: #20231E;
+    --color-background-overlay: rgb(0 0 0 / 55%);
 
-    --color-scrollbar: #474747 #EAEAEA;
+    /* Colors — border */
+    --color-border: #EEEEEE;
+    --color-border-subtle: #E5E5E5;
+    --color-border-muted: #DCDCDC;
 
-    /* Шрифты */
-    --font-primary: 'DM Sans';
-    --font-heading: 'DM Serif Text';
+    /* Colors — neutral */
+    --color-neutral-1000: #000000;
+    --color-neutral-200: #D9D9D9;
 
-    /* Размеры шрифтов */
+    /* Typography — font family */
+    --font-family-base: 'DM Sans', sans-serif;
+    --font-family-heading: 'DM Serif Text', serif;
+
+    /* Typography — font size */
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 30px;
     --font-size-page-title: 64px;
-    --font-size-30: 30px;
-    --font-size-24: 24px;
-    --font-size-20: 20px;
-    --font-size-button: 16px;
-    --font-size-16: 16px;
-    --font-size-14: 14px;
+
+    /* Typography — font weight */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Effects */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
 }
 
 * {
@@ -59,8 +67,8 @@ body {
 }
 
 body {
-    font-family: var(--font-primary), sans-serif;
-    color: var(--color-text);
+    font-family: var(--font-family-base), sans-serif;
+    color: var(--color-text-primary);
 }
 
 h1, p {
@@ -69,12 +77,12 @@ h1, p {
 
 .app {
     min-height: 100vh;
-    background-color: var(--color-app);
-    transition: background-color 0.3s ease;
+    background-color: var(--color-background);
+    transition: background-color var(--transition-base);
 }
 
 .app--home {
-    background-color: var(--color-app-home);
+    background-color: var(--color-background-home);
 }
 
 .main {
@@ -92,22 +100,22 @@ h1, p {
 }
 
 .pageTitle {
-    color: var(--color-page-title);
-    font-family: var(--font-heading), serif;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-heading), serif;
     font-size: var(--font-size-page-title);
     margin: 0;
 }
 
 .Button, .LimeButton {
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
     border-radius: 10px;
-    font-size: var(--font-size-button);
+    font-size: var(--font-size-md);
 }
 
 .LimeButton {
     background-color: var(--color-accent);
-    color: var(--color-white);
+    color: var(--color-text-inverse);
 }
 
 .LimeButton:hover {

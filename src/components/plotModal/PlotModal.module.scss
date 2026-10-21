@@ -12,7 +12,7 @@
 
 .overlayVisible {
   opacity: 1;
-  background: rgb(0 0 0 / 55%);
+  background: var(--color-background-overlay);
 }
 
 .modal {
@@ -22,8 +22,8 @@
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   border-radius: 15px;
-  background: var(--color-white);
-  color: var(--color-text);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   opacity: 0;
   transform: translate3d(0, 32px, 0);
   transition: opacity 650ms ease, transform 750ms;
@@ -43,9 +43,9 @@
   height: 40px;
   border: none;
   border-radius: 50%;
-  background: var(--color-white);
-  color: var(--color-white);
-  font-size: var(--font-size-30);
+  background: transparent;
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-2xl);
   cursor: pointer;
 }
 
@@ -62,12 +62,12 @@
 
 .content h2 {
   margin: 0;
-  font-size: var(--font-size-24);
+  font-size: var(--font-size-xl);
 }
 
 .location {
   margin-bottom: 24px;
-  color: var(--color-9C9C9C);
+  color: var(--color-text-muted);
 }
 
 .details {
@@ -79,7 +79,7 @@
 .details > div {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid var(--color-border-EEEEEE);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .details dt {
@@ -88,7 +88,7 @@
 
 .details dd {
   margin: 0;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: right;
 }
 
@@ -98,9 +98,9 @@
   padding: 15px 45px;
   border: 2px solid var(--color-accent);
   background-color: transparent;
-  color: #222222;
+  color: var(--color-text-primary);
   font-size: var(--font-size-24);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .cartButton:hover {
