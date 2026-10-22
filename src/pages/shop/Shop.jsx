@@ -1,14 +1,15 @@
-import {useMemo, useState} from 'react';
-import styles from './Shop.module.scss';
-import Loader from '../../components/loader/Loader.jsx';
-import {filterAndSortShopItems} from "./utils/shopSelectors";
-import {getCities} from "../../utils/getCities";
-import {useShopItems} from "./hooks/useShopItems";
+import { useMemo, useState } from "react";
+import { filterAndSortShopItems } from "./utils/shopSelectors";
+import { getCities } from "../../utils/getCities";
+import { useShopItems } from "./hooks/useShopItems";
 import PlotModal from "../../components/plotModal/PlotModal.jsx";
-import ShopControls from '../../components/shopControls/ShopControls.jsx';
-import PlotCard from '../../components/plotCard/PlotCard.jsx';
-import PlotMap from '../../components/plotMap/PlotMap.jsx';
-import clsx from "clsx";
+import ShopControls from "../../components/shopControls/ShopControls.jsx";
+import PlotMap from "../../components/plotMap/PlotMap.jsx";
+import ShopError from "./components/ShopError.jsx";
+import ShopGrid from "./components/ShopGrid.jsx";
+import ShopLoader from "./components/ShopLoader.jsx";
+import ShopLoadMore from "./components/ShopLoadMore.jsx";
+import ShopEmptyState from "./components/ShopEmptyState.jsx";
 
 function Shop() {
     const {
@@ -22,7 +23,7 @@ function Shop() {
     } = useShopItems();
 
     const [sortBy, setSortBy] = useState(null);
-    const [city, setCity] = useState('all');
+    const [city, setCity] = useState("all");
     const [showMap, setShowMap] = useState(false);
     const [selectedPlot, setSelectedPlot] = useState(null);
 
@@ -51,65 +52,39 @@ function Shop() {
                 onToggleMap={() => setShowMap((current) => !current)}
             />
 
-            {isError && (
-                <p role="alert" className={styles.error}>
-                    {error?.data?.message ||
-                    'Не удалось загрузить участки. Попробуйте ещё раз.'}
-                    <button type="button" onClick={retryLoading}>
-                        Повторить
-                    </button>
-                </p>
-            )}
+            {isError && (<ShopError error={error} onRetry={retryLoading}/>)}
 
             {showMap ? (
                 <PlotMap items={filteredItems} onMarkerClick={setSelectedPlot}/>
             ) : (
                 <>
-                    <div className={styles.grid}>
-                        {filteredItems.map((item) => (
-                            <PlotCard
-                                key={item.id}
-                                plot={item}
-                                onSelect={setSelectedPlot}
-                            />
-                        ))}
-                    </div>
+                    <ShopGrid items={filteredItems} onSelect={setSelectedPlot}/>
 
-                    {isFetching && (
-                        <div className={styles.loader}>
-                            <Loader text="Загружаем следующие участки..." />
-                        </div>
-                    )}
+                    {isFetching && <ShopLoader />}
 
                     {!isFetching && !isError && items.length === 0 && (
-                        <p>Участки не найдены.</p>
+                        <ShopEmptyState hasItems={false} hasMore={hasMore}/>
                     )}
 
                     {!isFetching &&
                         !isError &&
                         hasMore && (
-                            <div className={ styles.loadMore}>
-                                <button
-                                    type="button"
-                                    className={clsx("LimeButton", styles.loadMoreButton)}
-                                    onClick={loadMore}
-                                >
-                                    Загрузить ещё
-                                </button>
-                            </div>
+                            <ShopLoadMore onLoadMore={loadMore} />
                         )}
 
                     {!hasMore &&
                         !isFetching &&
                         !isError &&
                         items.length > 0 && (
-                            <p className={styles.endMessage}>
-                                Вы просмотрели все участки.
-                            </p>
+                            <ShopEmptyState hasItems={true} hasMore={hasMore}/>
                         )}
                 </>
             )}
-            <PlotModal plot={selectedPlot} onClose={() => setSelectedPlot(null)}/>
+
+            <PlotModal
+                plot={selectedPlot}
+                onClose={() => setSelectedPlot(null)}
+            />
         </section>
     );
 }
