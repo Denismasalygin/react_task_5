@@ -12,7 +12,7 @@
 
 .overlayVisible {
   opacity: 1;
-  background: rgb(0 0 0 / 55%);
+  background: var(--color-background-overlay);
 }
 
 .modal {
@@ -22,8 +22,8 @@
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   border-radius: 15px;
-  background: #fff;
-  color: #222;
+  background: var(--color-background);
+  color: var(--color-text-primary);
   opacity: 0;
   transform: translate3d(0, 32px, 0);
   transition: opacity 650ms ease, transform 750ms;
@@ -34,7 +34,6 @@
   transform: translate3d(0, 0, 0);
 }
 
-
 .closeButton {
   position: absolute;
   top: 12px;
@@ -43,10 +42,15 @@
   height: 40px;
   border: none;
   border-radius: 50%;
-  background: #ffffff00;
-  color: #ffffff;
-  font-size: 30px;
+  background: transparent;
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-2xl);
   cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.closeButton:hover{
+  color: var(--color-text-secondary);
 }
 
 .image {
@@ -62,12 +66,12 @@
 
 .content h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: var(--font-size-xl);
 }
 
 .location {
   margin-bottom: 24px;
-  color: #9C9C9C;
+  color: var(--color-text-muted);
 }
 
 .details {
@@ -79,37 +83,21 @@
 .details > div {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .details dt {
-  color: #9C9C9C;
+  color: var(--color-9C9C9C);
 }
 
 .details dd {
   margin: 0;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: right;
+  gap: 10px;
+  display: flex;
 }
 
-.cartButton {
-  width: 100%;
-  margin-top: 24px;
-  padding: 15px 45px;
-  border: 2px solid #68D017;
-  background-color: transparent;
-  color: #222222;
-  font-size: 16px;
-  font-weight: 500;
+.cart {
+  padding-top: 30px;
 }
-
-.cartButton:hover {
-  border: 2px solid #71f305;
-  box-shadow: 0 0 24px rgb(0 0 0 / 10%);
-}
-
-.cartButton:active {
-  border: 2px solid #61c612;
-  box-shadow: 0 0 24px rgb(0 0 0 / 15%);
-}
-

@@ -4,36 +4,29 @@ import clsx from "clsx";
 import CartIcon from "../../../public/icons/cart/CartIcon.jsx";
 import {useSelector} from "react-redux";
 import Tooltip from "../tooltip/Tooltip.jsx";
+import {navLinks} from "./constants/navigationLinks.js";
 
-const getNavLinkClass = ({isActive}, activeClass = styles.navLinkActive) =>
+const getNavLinkClass = ({ isActive }, activeClass = styles.navLinkActive) =>
     clsx(styles.navLink, {
         [activeClass]: isActive,
     });
 
 function Header() {
     const cartCount = useSelector((state) => state.cart.items.length);
+
     return (
-        <header className={clsx("DmSans", styles.header)}>
+        <header className={styles.header}>
             <nav className={styles.nav}>
-                <NavLink to="/" end className={getNavLinkClass}>
-                    Главная
-                </NavLink>
-
-                <NavLink to="/contacts" className={getNavLinkClass}>
-                    Контакты
-                </NavLink>
-
-                <NavLink to="/shop" className={getNavLinkClass}>
-                    Магазин
-                </NavLink>
-
-                <NavLink to="/wallet" className={getNavLinkClass}>
-                    Кошелёк
-                </NavLink>
-
-                <NavLink to="/plots" className={getNavLinkClass}>
-                    Plots
-                </NavLink>
+                {navLinks.map(({ key, to, label, end }) => (
+                    <NavLink
+                        key={key}
+                        to={to}
+                        end={end}
+                        className={getNavLinkClass}
+                    >
+                        {label}
+                    </NavLink>
+                ))}
 
                 <Tooltip text={`Корзина: ${cartCount}`}>
                     <NavLink
@@ -49,6 +42,7 @@ function Header() {
             </nav>
         </header>
     );
+
 }
 
 export default Header;

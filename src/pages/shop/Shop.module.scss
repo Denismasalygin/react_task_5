@@ -12,13 +12,13 @@
 
 .error {
   margin: 16px 0;
-  color: #b42318;
+  color: var(--color-danger);
 }
 
 .endMessage {
   padding: 24px 0;
   text-align: center;
-  color: #777;
+  color: var(--color-text-message);
 }
 
 .mapWrapper {
@@ -30,4 +30,18 @@
   height: 520px;
   overflow: hidden;
   border-radius: 15px;
+}
+
+.loadMore {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.loadMoreButton {
+  padding: 15px 30px;
+  max-height: 60px;
+  margin: auto;
+  font-weight: var(--font-weight-regular);
+  border: none;
 }

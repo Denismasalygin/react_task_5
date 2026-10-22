@@ -7,8 +7,9 @@
   height: 115px;
   padding: 35px 100px;
   background-color: inherit;
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
   z-index: 1;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 5%);
 }
 
 .nav {
@@ -19,10 +20,13 @@
 }
 
 .navLink {
-  color: #222222;
-  font-size: 24px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
   text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+  transition:
+          color var(--transition-base),
+          opacity var(--transition-base),
+          border-color var(--transition-base);
   opacity: 0.5;
   border-bottom: 5px solid transparent;
   border-radius: 4px;
@@ -35,7 +39,7 @@
 
 .navLinkActive {
   opacity: 1;
-  border-color: #68D017;
+  border-color: var(--color-accent);
 }
 
 .cartLinkActive{

@@ -60,14 +60,14 @@ function Contacts() {
 
                     <input
                         id="location-search"
-                        className={clsx("DmSans", styles.searchInput)}
+                        className={styles.searchInput}
                         type="search"
                         placeholder="Поиск по городам, странам, деревням и другим населенным пунктам"
                         value={search}
                         onChange={(event) => setSearch(event.target.value)}
                     />
 
-                    <button className={clsx("DmSans", "LimeButton", styles.searchButton)} type="button"  aria-label="Поиск" >
+                    <button className={clsx("LimeButton", styles.searchButton)} type="button"  aria-label="Поиск" >
                         Поиск
                     </button>
                 </div>
@@ -113,18 +113,18 @@ function Contacts() {
 
                                 <div className={styles.locationInfo}>
                                     <div>
-                                        <h2 className={clsx("DmSans", styles.locationName)}>
+                                        <h2 className={styles.locationName}>
                                             {location.name}
                                         </h2>
 
-                                        <p className={clsx("DmSans", styles.locationAddress)}>
+                                        <p className={styles.locationAddress}>
                                             {location.address}, {location.city}
                                         </p>
                                     </div>
 
                                     <Link
                                         to="/shop"
-                                        className={clsx("Button", "DmSans", styles.locationButton)}
+                                        className={clsx("Button", styles.locationButton)}
                                         aria-label="Перейти в магазин"
                                     >
                                         Магазин

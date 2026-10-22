@@ -1,18 +1,20 @@
-import clsx from 'clsx';
 import styles from './PlotCard.module.scss';
 import {getShopArea, getShopPrice, getShopImage,} from '../../pages/shop/utils/shopHelpers.js';
 import CartActionButton from '../cartActionButton/CartActionButton.jsx';
 
 function PlotCard({ plot, onSelect, observerRef }) {
+    const handleSelect = () => {
+        onSelect?.(plot);
+    };
     return (
         <article
-            className={clsx('DmSans', styles.card)}
+            className={styles.card}
             ref={observerRef}
         >
             <button
                 type="button"
                 className={styles.cardContent}
-                onClick={() => onSelect?.(plot)}
+                onClick={handleSelect}
                 aria-label={`Подробнее об участке в ${plot.city}`}
             >
                 <img
@@ -29,17 +31,19 @@ function PlotCard({ plot, onSelect, observerRef }) {
                     <p className={styles.country}>{plot.country}</p>
 
                     <p className={styles.detail}>
-                        <span>Площадь:</span>
+                        Площадь:
                         <span className={styles.infoValue}>
-                            {getShopArea(plot.id).toLocaleString('ru-RU')} м²
+                            {getShopArea(plot.id).toLocaleString('ru-RU')}
                         </span>
+                        {'м\u00B2'}
                     </p>
 
                     <p className={styles.detail}>
-                        <span>Цена:</span>
+                        Цена:
                         <span className={styles.infoValue}>
-                            {getShopPrice(plot.id).toLocaleString('ru-RU')} ₽
+                            {getShopPrice(plot.id).toLocaleString('ru-RU')}
                         </span>
+                        {'\u20BD'}
                     </p>
                 </div>
             </button>

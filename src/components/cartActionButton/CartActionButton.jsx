@@ -25,7 +25,7 @@ function CartActionButton({ plot, onClick }) {
     return (
         <button
             type="button"
-            className={clsx('Button', 'DmSans', styles.cartButton, {
+            className={clsx('Button', styles.cartButton, {
                 [styles.inCart]: isInCart,
             })}
             onClick={handleClick}

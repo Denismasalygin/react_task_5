@@ -13,10 +13,9 @@
     max-width: 240px;
     padding: 9px 12px;
     border-radius: 8px;
-    background: #20231e;
-    color: #ffffff;
-
-    font-size: 12px;
+    background: var(--color-background-tooltip);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-xs);
 
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
     pointer-events: none;

@@ -2,7 +2,7 @@
   min-width: 0;
   overflow: hidden;
   border-radius: 15px;
-  background: #F1F1F1;
+  background: var(--color-background-card);
   cursor: pointer;
 }
 
@@ -30,27 +30,27 @@
 }
 
 .city {
-  font-size: 24px;
-  font-weight: 500;
-  color: #222222;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
 }
 
 .country {
-  color: #9c9c9c;
-  font-size: 20px;
-  font-weight: 500;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
 }
 
 .detail {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: #9c9c9c;
-  font-size: 20px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
 }
 
 .infoValue {
-  color: #222222;
+  color: var(--color-text-primary);
 }
 
 .actions {

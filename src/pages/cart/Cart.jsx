@@ -9,7 +9,8 @@ import {clearCart} from '../../store/cartSlice.js';
 import {getShopPrice} from '../shop/utils/shopHelpers.js';
 import {filterAndSortShopItems} from '../shop/utils/shopSelectors.js';
 import {getCities} from '../../utils/getCities.js';
-import clsx from "clsx";
+import CartSummary from './components/CartSummary.jsx';
+import EmptyCart from './components/EmptyCart.jsx';
 
 function Cart() {
     const dispatch = useDispatch();
@@ -19,6 +20,8 @@ function Cart() {
     const [city, setCity] = useState('all');
     const [showMap, setShowMap] = useState(false);
     const [selectedPlot, setSelectedPlot] = useState(null);
+
+    const isEmpty = cartItems.length === 0;
 
     const cities = getCities(cartItems);
 
@@ -32,9 +35,13 @@ function Cart() {
         0
     );
 
+    const handleToggleMap = () => {
+        setShowMap((current) => !current);
+    };
+
     return (
         <section className="page">
-            <ShopControls
+            {!isEmpty && (<ShopControls
                 cities={cities}
                 city={city}
                 onCityChange={setCity}
@@ -47,18 +54,12 @@ function Cart() {
                     })
                 }
                 showMap={showMap}
-                onToggleMap={() => setShowMap((current) => !current)}
-                onClearCart={
-                    cartItems.length > 0
-                        ? () => dispatch(clearCart())
-                        : undefined
-                }
-            />
+                onToggleMap={handleToggleMap}
+                onClearCart={() => dispatch(clearCart())}
+            />)}
 
-            {cartItems.length === 0 ? (
-                <h1 className={styles.emptyMessage}>
-                    Ваша корзина пока пуста
-                </h1>
+            {isEmpty ? (
+                <EmptyCart />
             ) : (
                 <>
                     {showMap ? (
@@ -78,20 +79,7 @@ function Cart() {
                         </div>
                     )}
 
-                    <div className={styles.summary}>
-                        <p className={clsx("DmSans", styles.summaryDetails)}>
-                            <span>Участков:</span>
-                            <span>{cartItems.length}</span>
-                        </p>
-
-                        <p className={clsx("DmSans", styles.summaryDetails)}>
-                            <span>Общая стоимость:</span>
-                            <span>
-                                {totalPrice.toLocaleString('ru-RU')}
-                            </span>
-                            <span>₽</span>
-                        </p>
-                    </div>
+                    <CartSummary cartItems={cartItems} totalPrice={totalPrice}/>
                 </>
             )}
 

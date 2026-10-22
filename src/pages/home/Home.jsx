@@ -12,7 +12,7 @@ function Home() {
                     собственные овощи
                 </h1>
 
-                <Link to="/shop" className={clsx("DmSans", "LimeButton", styles.startButton)} aria-label="Перейти в каталог товаров">
+                <Link to="/shop" className={clsx("LimeButton", styles.startButton)} aria-label="Перейти в каталог товаров">
                     Старт
                 </Link>
             </section>
@@ -27,7 +27,7 @@ function Home() {
                         loading="lazy"
                     />
 
-                    <p className={clsx("DmSans", styles.featureDescription)}>
+                    <p className={styles.featureDescription}>
                         Арендуйте собственный участок земли
                         и наблюдайте, как растут ваши овощи
                     </p>
@@ -41,7 +41,7 @@ function Home() {
                         loading="lazy"
                     />
 
-                    <p className={clsx("DmSans", styles.featureDescription)}>
+                    <p className={styles.featureDescription}>
                         Наслаждайтесь чудесами природы из года в год на арендованном
                         участке для выращивания овощей (60 или 30 м²)
                     </p>
@@ -55,7 +55,7 @@ function Home() {
                         loading="lazy"
                     />
 
-                    <p className={clsx("DmSans", styles.featureDescription)}>
+                    <p className={styles.featureDescription}>
                         Выращивайте урожай на собственном участке: от посадки семян
                         в плодородную почву до сбора выращенных вами овощей.
                     </p>

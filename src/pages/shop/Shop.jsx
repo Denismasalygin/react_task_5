@@ -1,13 +1,15 @@
-import {useMemo, useState} from 'react';
-import styles from './Shop.module.scss';
-import Loader from '../../components/loader/Loader.jsx';
-import {filterAndSortShopItems} from "./utils/shopSelectors";
-import {getCities} from "../../utils/getCities";
-import {useShopItems} from "./hooks/useShopItems";
+import { useMemo, useState } from "react";
+import { filterAndSortShopItems } from "./utils/shopSelectors";
+import { getCities } from "../../utils/getCities";
+import { useShopItems } from "./hooks/useShopItems";
 import PlotModal from "../../components/plotModal/PlotModal.jsx";
-import ShopControls from '../../components/shopControls/ShopControls.jsx';
-import PlotCard from '../../components/plotCard/PlotCard.jsx';
-import PlotMap from '../../components/plotMap/PlotMap.jsx';
+import ShopControls from "../../components/shopControls/ShopControls.jsx";
+import PlotMap from "../../components/plotMap/PlotMap.jsx";
+import ShopError from "./components/ShopError.jsx";
+import ShopGrid from "./components/ShopGrid.jsx";
+import ShopLoader from "./components/ShopLoader.jsx";
+import ShopLoadMore from "./components/ShopLoadMore.jsx";
+import ShopEmptyState from "./components/ShopEmptyState.jsx";
 
 function Shop() {
     const {
@@ -16,13 +18,12 @@ function Shop() {
         isFetching,
         isError,
         error,
+        loadMore,
         retryLoading,
-        setObserverTarget,
-        total,
     } = useShopItems();
 
     const [sortBy, setSortBy] = useState(null);
-    const [city, setCity] = useState('all');
+    const [city, setCity] = useState("all");
     const [showMap, setShowMap] = useState(false);
     const [selectedPlot, setSelectedPlot] = useState(null);
 
@@ -51,58 +52,39 @@ function Shop() {
                 onToggleMap={() => setShowMap((current) => !current)}
             />
 
-            {isError && (
-                <p role="alert" className={styles.error}>
-                    {error?.data?.message ||
-                    'Не удалось загрузить участки. Попробуйте ещё раз.'}
-                    <button type="button" onClick={retryLoading}>
-                        Повторить
-                    </button>
-                </p>
-            )}
+            {isError && (<ShopError error={error} onRetry={retryLoading}/>)}
 
             {showMap ? (
                 <PlotMap items={filteredItems} onMarkerClick={setSelectedPlot}/>
             ) : (
                 <>
-                    <div className={styles.grid}>
-                        {filteredItems.map((item) => {
-                            const triggerIndex = Math.max(0, items.length - 4);
-                            const isTrigger =
-                                items.length < total &&
-                                item.id === filteredItems[triggerIndex]?.id;
+                    <ShopGrid items={filteredItems} onSelect={setSelectedPlot}/>
 
-                            return (
-                                <PlotCard
-                                    key={item.id}
-                                    plot={item}
-                                    onSelect={setSelectedPlot}
-                                    observerRef={
-                                        isTrigger ? setObserverTarget : undefined
-                                    }
-                                />
-                            );
-                        })}
-                    </div>
-
-                    {isFetching && (
-                        <div className={styles.loader}>
-                            <Loader text="Загружаем следующие участки..." />
-                        </div>
-                    )}
+                    {isFetching && <ShopLoader />}
 
                     {!isFetching && !isError && items.length === 0 && (
-                        <p>Участки не найдены.</p>
+                        <ShopEmptyState hasItems={false} hasMore={hasMore}/>
                     )}
 
-                    {!hasMore && items.length > 0 && (
-                        <p className={styles.endMessage}>
-                            Вы просмотрели все участки.
-                        </p>
-                    )}
+                    {!isFetching &&
+                        !isError &&
+                        hasMore && (
+                            <ShopLoadMore onLoadMore={loadMore} />
+                        )}
+
+                    {!hasMore &&
+                        !isFetching &&
+                        !isError &&
+                        items.length > 0 && (
+                            <ShopEmptyState hasItems={true} hasMore={hasMore}/>
+                        )}
                 </>
             )}
-            <PlotModal plot={selectedPlot} onClose={() => setSelectedPlot(null)}/>
+
+            <PlotModal
+                plot={selectedPlot}
+                onClose={() => setSelectedPlot(null)}
+            />
         </section>
     );
 }
