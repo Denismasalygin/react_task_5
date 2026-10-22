@@ -9,6 +9,8 @@ import {clearCart} from '../../store/cartSlice.js';
 import {getShopPrice} from '../shop/utils/shopHelpers.js';
 import {filterAndSortShopItems} from '../shop/utils/shopSelectors.js';
 import {getCities} from '../../utils/getCities.js';
+import CartSummary from './components/CartSummary.jsx';
+import EmptyCart from './components/EmptyCart.jsx';
 
 function Cart() {
     const dispatch = useDispatch();
@@ -48,18 +50,14 @@ function Cart() {
                     })
                 }
                 showMap={showMap}
-                onToggleMap={() => setShowMap((current) => !current)}
-                onClearCart={
-                    !isEmpty
-                        ? () => dispatch(clearCart())
-                        : undefined
+                onToggleMap={() =>
+                    setShowMap((current) => !current)
                 }
+                onClearCart={() => dispatch(clearCart())}
             />)}
 
             {isEmpty ? (
-                <h1 className={styles.emptyMessage}>
-                    Ваша корзина пока пуста
-                </h1>
+                <EmptyCart />
             ) : (
                 <>
                     {showMap ? (
@@ -79,18 +77,7 @@ function Cart() {
                         </div>
                     )}
 
-                    <div className={styles.summary}>
-                        <p className={styles.summaryDetails}>
-                            Участков:
-                            <span>{cartItems.length}</span>
-                        </p>
-
-                        <p className={styles.summaryDetails}>
-                            Общая стоимость:
-                            <span>{totalPrice.toLocaleString('ru-RU')}</span>
-                            {'\u20BD'}
-                        </p>
-                    </div>
+                    <CartSummary cartItems={cartItems} totalPrice={totalPrice}/>
                 </>
             )}
 
