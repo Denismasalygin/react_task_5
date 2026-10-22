@@ -10,7 +10,7 @@ const navLinks = [
     { key: 'contacts', to: '/contacts', label: 'Контакты' },
     { key: 'shop', to: '/shop', label: 'Магазин' },
     { key: 'wallet', to: '/wallet', label: 'Кошелёк' },
-    { key: 'plots', to: '/plots', label: 'Plots' },
+    { key: 'plots', to: '/plots', label: 'Участки' },
 ];
 
 const getNavLinkClass = ({ isActive }, activeClass = styles.navLinkActive) =>

@@ -34,7 +34,6 @@
   transform: translate3d(0, 0, 0);
 }
 
-
 .closeButton {
   position: absolute;
   top: 12px;
@@ -47,6 +46,11 @@
   color: var(--color-text-inverse);
   font-size: var(--font-size-2xl);
   cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.closeButton:hover{
+  color: var(--color-text-secondary);
 }
 
 .image {
@@ -94,24 +98,6 @@
   display: flex;
 }
 
-.cartButton {
-  width: 100%;
-  margin-top: 24px;
-  padding: 15px 45px;
-  border: 2px solid var(--color-accent);
-  background-color: transparent;
-  color: var(--color-text-primary);
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-medium);
+.cart {
+  padding-top: 30px;
 }
-
-.cartButton:hover {
-  border: 2px solid var(--color-accent-hover);
-  box-shadow: 0 0 24px rgb(0 0 0 / 10%);
-}
-
-.cartButton:active {
-  border: 2px solid var(--color-accent-active);
-  box-shadow: 0 0 24px rgb(0 0 0 / 15%);
-}
-

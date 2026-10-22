@@ -92,7 +92,7 @@ function PlotModal({plot, onClose}) {
                     onClick={onClose}
                     aria-label="Закрыть окно"
                 >
-                    ×
+                    &times;
                 </button>
 
                 <img
@@ -140,16 +140,18 @@ function PlotModal({plot, onClose}) {
                         </div>
 
                         {Number.isFinite(displayPlot.lat) &&
-                        Number.isFinite(displayPlot.lng) && (
-                            <div>
-                                <dt>Координаты</dt>
-                                <dd>
-                                    {displayPlot.lat}, {displayPlot.lng}
-                                </dd>
-                            </div>
-                        )}
+                            Number.isFinite(displayPlot.lng) && (
+                                <div>
+                                    <dt>Координаты</dt>
+                                    <dd>
+                                        {displayPlot.lat}, {displayPlot.lng}
+                                    </dd>
+                                </div>
+                            )}
                     </dl>
-                    <CartActionButton plot={displayPlot}/>
+                    <div className={styles.cart}>
+                        <CartActionButton plot={displayPlot}/>
+                    </div>
                 </div>
             </section>
         </div>

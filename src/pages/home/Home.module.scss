@@ -8,9 +8,9 @@
 }
 
 .startButton {
-  padding: 15px 30px;
+  padding: 20px 30px;
   max-height: 60px;
-  max-width: 150px;
+  width: 60%;
   margin: auto;
   text-decoration: none;
   font-weight: var(--font-weight-bold);
@@ -28,6 +28,14 @@
   max-width: 520px;
   max-height: 380px;
   position: relative;
+  transition: all var(--transition-base);
+  border-radius: 15px;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 15px rgb(56 56 56 / 58%);
+  cursor: pointer;
 }
 
 .featureDescription {
@@ -38,7 +46,6 @@
 
   background-color: var(--color-background);
   border: 2px solid var(--color-border-muted);
-  border-radius: 10px;
   padding: 15px 8px;
 
   color: var(--color-text-secondary);

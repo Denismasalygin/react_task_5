@@ -19,6 +19,8 @@ function Cart() {
     const [showMap, setShowMap] = useState(false);
     const [selectedPlot, setSelectedPlot] = useState(null);
 
+    const isEmpty = cartItems.length === 0;
+
     const cities = getCities(cartItems);
 
     const filteredItems = useMemo(
@@ -33,7 +35,7 @@ function Cart() {
 
     return (
         <section className="page">
-            <ShopControls
+            {!isEmpty && (<ShopControls
                 cities={cities}
                 city={city}
                 onCityChange={setCity}
@@ -48,13 +50,13 @@ function Cart() {
                 showMap={showMap}
                 onToggleMap={() => setShowMap((current) => !current)}
                 onClearCart={
-                    cartItems.length > 0
+                    !isEmpty
                         ? () => dispatch(clearCart())
                         : undefined
                 }
-            />
+            />)}
 
-            {cartItems.length === 0 ? (
+            {isEmpty ? (
                 <h1 className={styles.emptyMessage}>
                     Ваша корзина пока пуста
                 </h1>
