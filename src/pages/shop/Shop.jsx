@@ -8,6 +8,7 @@ import PlotModal from "../../components/plotModal/PlotModal.jsx";
 import ShopControls from '../../components/shopControls/ShopControls.jsx';
 import PlotCard from '../../components/plotCard/PlotCard.jsx';
 import PlotMap from '../../components/plotMap/PlotMap.jsx';
+import clsx from "clsx";
 
 function Shop() {
     const {
@@ -16,9 +17,8 @@ function Shop() {
         isFetching,
         isError,
         error,
+        loadMore,
         retryLoading,
-        setObserverTarget,
-        total,
     } = useShopItems();
 
     const [sortBy, setSortBy] = useState(null);
@@ -66,23 +66,13 @@ function Shop() {
             ) : (
                 <>
                     <div className={styles.grid}>
-                        {filteredItems.map((item) => {
-                            const triggerIndex = Math.max(0, items.length - 4);
-                            const isTrigger =
-                                items.length < total &&
-                                item.id === filteredItems[triggerIndex]?.id;
-
-                            return (
-                                <PlotCard
-                                    key={item.id}
-                                    plot={item}
-                                    onSelect={setSelectedPlot}
-                                    observerRef={
-                                        isTrigger ? setObserverTarget : undefined
-                                    }
-                                />
-                            );
-                        })}
+                        {filteredItems.map((item) => (
+                            <PlotCard
+                                key={item.id}
+                                plot={item}
+                                onSelect={setSelectedPlot}
+                            />
+                        ))}
                     </div>
 
                     {isFetching && (
@@ -95,11 +85,28 @@ function Shop() {
                         <p>Участки не найдены.</p>
                     )}
 
-                    {!hasMore && items.length > 0 && (
-                        <p className={styles.endMessage}>
-                            Вы просмотрели все участки.
-                        </p>
-                    )}
+                    {!isFetching &&
+                        !isError &&
+                        hasMore && (
+                            <div className={ styles.loadMore}>
+                                <button
+                                    type="button"
+                                    className={clsx("LimeButton", styles.loadMoreButton)}
+                                    onClick={loadMore}
+                                >
+                                    Загрузить ещё
+                                </button>
+                            </div>
+                        )}
+
+                    {!hasMore &&
+                        !isFetching &&
+                        !isError &&
+                        items.length > 0 && (
+                            <p className={styles.endMessage}>
+                                Вы просмотрели все участки.
+                            </p>
+                        )}
                 </>
             )}
             <PlotModal plot={selectedPlot} onClose={() => setSelectedPlot(null)}/>

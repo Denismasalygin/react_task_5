@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLazyGetShopUsersQuery } from '../../../api/locationsApi.js';
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 12;
 
 export function useShopItems() {
     const [items, setItems] = useState([]);
     const [total, setTotal] = useState(0);
-    const [observerTarget, setObserverTarget] = useState(null);
 
-    const inFlightRef = useRef(false);
     const totalRef = useRef(0);
 
     const [
@@ -17,11 +15,7 @@ export function useShopItems() {
     ] = useLazyGetShopUsersQuery();
 
     const loadPage = useCallback(async (skip) => {
-        if (inFlightRef.current || (skip > 0 && skip >= totalRef.current)) {
-            return;
-        }
-
-        inFlightRef.current = true;
+        if (skip > 0 && skip >= totalRef.current) return;
 
         try {
             const result = await fetchShopUsers(
@@ -54,8 +48,6 @@ export function useShopItems() {
             }
         } catch (err) {
             console.error('Не удалось загрузить участки:', err);
-        } finally {
-            inFlightRef.current = false;
         }
     }, [fetchShopUsers]);
 
@@ -65,33 +57,11 @@ export function useShopItems() {
 
     const hasMore = items.length < total;
 
-    useEffect(() => {
-        if (!observerTarget || !hasMore || isFetching) {
-            return;
+    const loadMore = useCallback(() => {
+        if (!isFetching && hasMore) {
+            loadPage(items.length);
         }
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    loadPage(items.length);
-                }
-            },
-            {
-                rootMargin: '200px',
-                threshold: 0.1,
-            }
-        );
-
-        observer.observe(observerTarget);
-
-        return () => observer.disconnect();
-    }, [
-        observerTarget,
-        hasMore,
-        isFetching,
-        items.length,
-        loadPage,
-    ]);
+    }, [isFetching, hasMore, items.length, loadPage]);
 
     const retryLoading = useCallback(() => {
         loadPage(items.length === 0 ? 0 : items.length);
@@ -104,9 +74,7 @@ export function useShopItems() {
         isFetching,
         isError,
         error,
-        loadPage,
+        loadMore,
         retryLoading,
-        observerTarget,
-        setObserverTarget,
     };
 }
