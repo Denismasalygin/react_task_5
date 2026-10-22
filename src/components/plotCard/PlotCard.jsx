@@ -3,6 +3,9 @@ import {getShopArea, getShopPrice, getShopImage,} from '../../pages/shop/utils/s
 import CartActionButton from '../cartActionButton/CartActionButton.jsx';
 
 function PlotCard({ plot, onSelect, observerRef }) {
+    const handleSelect = () => {
+        onSelect?.(plot);
+    };
     return (
         <article
             className={styles.card}
@@ -11,7 +14,7 @@ function PlotCard({ plot, onSelect, observerRef }) {
             <button
                 type="button"
                 className={styles.cardContent}
-                onClick={() => onSelect?.(plot)}
+                onClick={handleSelect}
                 aria-label={`Подробнее об участке в ${plot.city}`}
             >
                 <img

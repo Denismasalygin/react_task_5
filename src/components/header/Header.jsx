@@ -4,14 +4,7 @@ import clsx from "clsx";
 import CartIcon from "../../../public/icons/cart/CartIcon.jsx";
 import {useSelector} from "react-redux";
 import Tooltip from "../tooltip/Tooltip.jsx";
-
-const navLinks = [
-    { key: 'home', to: '/', label: 'Главная', end: true },
-    { key: 'contacts', to: '/contacts', label: 'Контакты' },
-    { key: 'shop', to: '/shop', label: 'Магазин' },
-    { key: 'wallet', to: '/wallet', label: 'Кошелёк' },
-    { key: 'plots', to: '/plots', label: 'Участки' },
-];
+import {navLinks} from "./constants/navigationLinks.js";
 
 const getNavLinkClass = ({ isActive }, activeClass = styles.navLinkActive) =>
     clsx(styles.navLink, {

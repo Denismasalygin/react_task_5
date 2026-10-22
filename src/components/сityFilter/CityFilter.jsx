@@ -39,12 +39,24 @@ function CityFilter({ cities, city, onCityChange }) {
         setIsOpen(false);
     }
 
+    function handleToggle() {
+        setIsOpen((open) => !open);
+    }
+
+    function handleSelectAll() {
+        selectCity('all');
+    }
+
+    function handleCitySelect(item) {
+        selectCity(item);
+    }
+
     return (
         <div className={styles.cityFilter} ref={filterRef}>
             <button
                 type="button"
                 className={clsx("Button", styles.filterButton)}
-                onClick={() => setIsOpen((open) => !open)}
+                onClick={handleToggle}
                 aria-expanded={isOpen}
                 aria-label="Фильтр по городам"
             >
@@ -66,7 +78,7 @@ function CityFilter({ cities, city, onCityChange }) {
                         styles.cityOption,
                         city === 'all' && styles.cityOptionActive
                     )}
-                    onClick={() => selectCity('all')}
+                    onClick={handleSelectAll}
                 >
                     Все города
                 </button>
@@ -79,7 +91,7 @@ function CityFilter({ cities, city, onCityChange }) {
                             styles.cityOption,
                             city === item && styles.cityOptionActive
                         )}
-                        onClick={() => selectCity(item)}
+                        onClick={handleCitySelect}
                     >
                         {item}
                     </button>

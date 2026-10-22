@@ -35,6 +35,10 @@ function Cart() {
         0
     );
 
+    const handleToggleMap = () => {
+        setShowMap((current) => !current);
+    };
+
     return (
         <section className="page">
             {!isEmpty && (<ShopControls
@@ -50,9 +54,7 @@ function Cart() {
                     })
                 }
                 showMap={showMap}
-                onToggleMap={() =>
-                    setShowMap((current) => !current)
-                }
+                onToggleMap={handleToggleMap}
                 onClearCart={() => dispatch(clearCart())}
             />)}
 
