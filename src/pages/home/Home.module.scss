@@ -32,10 +32,12 @@
   border-radius: 15px;
 }
 
-.featureCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 2px 15px rgb(56 56 56 / 58%);
-  cursor: pointer;
+@media (hover: hover) {
+  .featureCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 15px rgb(56 56 56 / 58%);
+    cursor: pointer;
+  }
 }
 
 .featureDescription {
@@ -53,4 +55,18 @@
   font-weight: var(--font-weight-regular);
 
   margin: 0;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    gap: 50px;
+  }
+
+  .featureDescription {
+    font-size: var(--font-size-md);
+  }
+
+  .features {
+    padding-top: 100px;
+  }
 }

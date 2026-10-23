@@ -69,3 +69,20 @@
   background-color: var(--color-background-home);
   font-weight: var(--font-weight-semibold);
 }
+
+@media (max-width: 700px) {
+  .filterButton {
+    padding: 8px 6px 8px 10px;
+    gap: 8px;
+  }
+
+  .cityDropdown {
+    width: 130px;
+    padding: 4px;
+  }
+
+  .cityOption {
+    padding: 8px 10px;
+    font-size: var(--font-size-xs);
+  }
+}

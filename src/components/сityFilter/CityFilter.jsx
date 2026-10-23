@@ -48,7 +48,7 @@ function CityFilter({ cities, city, onCityChange }) {
     }
 
     function handleCitySelect(item) {
-        selectCity(item);
+        selectCity(item.target.innerHTML);
     }
 
     return (
