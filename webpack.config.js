@@ -2,74 +2,81 @@ import path from 'node:path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-export default {
-    mode: 'production',
+export default (env, argv) => {
+    const isProduction = argv.mode === 'production';
 
-    entry: './src/index.jsx',
+    return {
+        mode: isProduction ? 'production' : 'development',
 
-    output: {
-        path: path.resolve('dist'),
-        filename: 'bundle.js',
-        publicPath: 'auto',
-        clean: true,
-    },
+        entry: './src/index.jsx',
 
-    module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                use: 'babel-loader',
-            },
-            {
-                test: /\.module\.scss$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            esModule: true,
-                            modules: {
-                                namedExport: false,
+        output: {
+            path: path.resolve('dist'),
+            filename: 'bundle.js',
+            publicPath: isProduction ? 'auto' : '/',
+            clean: true,
+        },
+
+        devtool: isProduction ? 'source-map' : 'eval-source-map',
+
+        module: {
+            rules: [
+                {
+                    test: /\.jsx?$/,
+                    exclude: /node_modules/,
+                    use: 'babel-loader',
+                },
+                {
+                    test: /\.module\.scss$/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                esModule: true,
+                                modules: {
+                                    namedExport: false,
+                                },
                             },
                         },
-                    },
-                    'sass-loader',
-                ],
-            },
-            {
-                test: /\.scss$/,
-                exclude: /\.module\.scss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
-                ],
-            },
-        ],
-    },
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html',
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
+                        'sass-loader',
+                    ],
+                },
                 {
-                    from: 'public/images',
-                    to: 'images',
-                    noErrorOnMissing: true,
+                    test: /\.scss$/,
+                    exclude: /\.module\.scss$/,
+                    use: [
+                        'style-loader',
+                        'css-loader',
+                        'sass-loader',
+                    ],
                 },
             ],
-        }),
-    ],
-
-    devServer: {
-        port: 3000,
-        open: true,
-        static: {
-            directory: path.resolve('public'),
         },
-        historyApiFallback: true,
-    },
+
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: './public/index.html',
+            }),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        from: 'public/images',
+                        to: 'images',
+                        noErrorOnMissing: true,
+                    },
+                ],
+            }),
+        ],
+
+        devServer: {
+            port: 3000,
+            open: true,
+            hot: true,
+            static: {
+                directory: path.resolve('public'),
+            },
+            historyApiFallback: true,
+        },
+    };
 };

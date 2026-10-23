@@ -7,5 +7,5 @@ export function getShopPrice(id) {
 }
 
 export function getShopImage(id) {
-    return `/react_task_5/images/shop/${id % 3}.jpg`;
+    return `/images/shop/${id % 3}.jpg`;
 }
