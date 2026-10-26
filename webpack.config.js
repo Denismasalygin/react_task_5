@@ -13,7 +13,7 @@ export default (env, argv) => {
         output: {
             path: path.resolve('dist'),
             filename: 'bundle.js',
-            publicPath: isProduction ? 'auto' : '/',
+            publicPath: isProduction ? '/react_task_5/' : '/',
             clean: true,
         },
 
