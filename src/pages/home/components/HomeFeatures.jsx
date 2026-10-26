@@ -5,7 +5,7 @@ function HomeFeatures() {
     return (
         <section className={styles.features}>
             <FeatureCard
-                image="/images/vegetables.jpg"
+                image="/react_task_5/images/vegetables.jpg"
                 alt="Овощи на грядке"
             >
                 Арендуйте собственный участок земли
@@ -13,7 +13,7 @@ function HomeFeatures() {
             </FeatureCard>
 
             <FeatureCard
-                image="/images/tomato.jpg"
+                image="/react_task_5/images/tomato.jpg"
                 alt="Спелые красные помидоры"
             >
                 Наслаждайтесь чудесами природы из года в год на арендованном
@@ -21,7 +21,7 @@ function HomeFeatures() {
             </FeatureCard>
 
             <FeatureCard
-                image="/images/sprout.jpg"
+                image="/react_task_5/images/sprout.jpg"
                 alt="Молодой росток растения"
             >
                 Выращивайте урожай на собственном участке: от посадки семян
