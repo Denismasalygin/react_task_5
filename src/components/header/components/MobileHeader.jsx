@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import styles from "../Header.module.scss";
 import BurgerIcon from "../../../../public/icons/burger/BurgerIcon.jsx";
-import HeaderNavLinks from "./HeaderNavLinks.jsx";
 import HeaderCart from "./HeaderCart.jsx";
+import MobileMenu from "./MobileMenu.jsx";
 
 function MobileHeader({ cartCount }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,18 +43,7 @@ function MobileHeader({ cartCount }) {
                 <HeaderCart cartCount={cartCount} />
             </header>
 
-            {isMenuOpen && (
-                <div className={styles.menuOverlay} onClick={closeMenu}>
-                    <nav
-                        id="mobile-navigation"
-                        className={styles.mobileMenu}
-                        aria-label="Мобильная навигация"
-                        onClick={(event) => event.stopPropagation()}
-                    >
-                        <HeaderNavLinks onLinkClick={closeMenu} />
-                    </nav>
-                </div>
-            )}
+            {isMenuOpen && <MobileMenu onClose={closeMenu} />}
         </>
     );
 }
