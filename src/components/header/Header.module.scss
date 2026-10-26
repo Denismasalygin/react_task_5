@@ -4,17 +4,21 @@
   display: flex;
   align-items: center;
   width: 100%;
+  font-weight: var(--font-weight-regular);
+  box-shadow: 0 2px 15px rgb(0 0 0 / 5%);
+  z-index: 1;
+  background-color: inherit;
+}
+
+.desktopHeader {
   height: 115px;
   padding: 35px 100px;
-  background-color: inherit;
-  font-weight: var(--font-weight-regular);
-  z-index: 1;
-  box-shadow: 0 2px 15px rgb(0 0 0 / 5%);
 }
 
 .nav {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   width: 100%;
   gap: 40px;
 }
@@ -44,4 +48,112 @@
 
 .cartLinkActive{
   opacity: 1;
+}
+
+.mobileHeader {
+  display: none;
+}
+
+.burgerButton {
+  display: inline-flex;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+
+  &:hover {
+    background-color: rgb(0 0 0 / 5%);
+  }
+}
+
+.menuOverlay {
+  position: fixed;
+  inset: 72px 0 0;
+  z-index: 9;
+  background-color: rgb(0 0 0 / 35%);
+  animation: overlayAppear 180ms ease;
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(320px, 85%);
+  min-height: 100%;
+  padding: 20px;
+  background-color: var(--color-background);
+  animation: menuAppear 220ms ease;
+
+  .navLink {
+    padding: 14px 16px;
+    border: none;
+    border-left: 3px solid transparent;
+    border-radius: 3px;
+    font-size: var(--font-size-md);
+    opacity: 0.75;
+  }
+
+  .navLink:hover {
+    background-color: rgb(0 0 0 / 4%);
+  }
+
+  .navLinkActive {
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
+    background-color: rgb(0 0 0 / 3%);
+    opacity: 1;
+  }
+}
+
+@keyframes overlayAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes menuAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 850px) {
+  .nav {
+    gap: 30px;
+  }
+
+  .navLink {
+    font-size: var(--font-size-lg);
+    border-bottom-width: 3px;
+    border-radius: 2px;
+  }
+
+  .desktopHeader {
+    height: 80px;
+    padding: 20px 40px;
+  }
+}
+
+@media (max-width: 700px) {
+  .desktopHeader {
+    display: none;
+  }
+
+  .mobileHeader {
+    display: flex;
+    justify-content: space-between;
+    height: 72px;
+    padding: 12px 20px;
+  }
 }

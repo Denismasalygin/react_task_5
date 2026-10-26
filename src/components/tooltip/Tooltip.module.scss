@@ -28,9 +28,11 @@
             visibility 160ms ease;
   }
 
-  &:hover::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
+  @media (hover: hover) {
+    &:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
   }
 }

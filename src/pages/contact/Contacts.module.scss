@@ -17,6 +17,10 @@
   border-radius: 17px;
 }
 
+.searchTooltip {
+  width: 100%;
+}
+
 .searchInput {
   width: 100%;
   height: 100%;
@@ -27,6 +31,7 @@
 
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-regular);
+  text-overflow: ellipsis;
 }
 
 .searchInput::-webkit-search-cancel-button {
@@ -128,4 +133,73 @@
   overflow: hidden;
   border-radius: 15px;
   background: var(--color-border);
+}
+
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+    gap: 120px;
+  }
+
+  .sidebar {
+    max-height: 580px;
+  }
+
+  .map {
+    height: 450px;
+  }
+}
+
+@media (max-width: 850px) {
+  .hero {
+    gap: 30px;
+  }
+
+  .searchWrapper {
+    max-height: 50px;
+    border-radius: 12px;
+    padding-right: 8px;
+  }
+
+  .searchInput {
+    font-size: var(--font-size-sm);
+  }
+
+  .searchButton {
+    padding: 10px 30px;
+    font-size: var(--font-size-sm);
+    border-radius: 6px;
+  }
+
+  .locationName {
+    font-size: var(--font-size-lg);
+  }
+
+  .locationAddress {
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (max-width: 700px) {
+  .locationButton {
+    padding: 10px 25px;
+  }
+
+  .locationName {
+    font-size: var(--font-size-md);
+  }
+
+  .locationAddress {
+    font-size: var(--font-size-sm);
+  }
+
+  .locationImage {
+    max-height: 250px;
+  }
+
+  .locationCard {
+    height: 320px;
+  }
 }

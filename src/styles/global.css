@@ -132,3 +132,35 @@ h1, p {
     object-fit: cover;
     border-radius: 15px;
 }
+
+@media (max-width: 850px) {
+    .main {
+        padding-top: 80px;
+    }
+
+    .page {
+        padding: 80px 70px 90px 70px;
+    }
+
+    .pageTitle {
+        font-size: var(--font-size-2xl);
+    }
+
+    .Button, .LimeButton {
+        font-size: var(--font-size-sm);
+    }
+}
+
+@media (max-width: 700px) {
+    .main {
+        padding-top: 60px;
+    }
+
+    .page {
+        padding: 60px 50px 70px 50px;
+    }
+
+    .pageTitle {
+        font-size: var(--font-size-xl);
+    }
+}

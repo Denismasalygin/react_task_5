@@ -32,3 +32,10 @@
   color: var(--color-text-primary);
   cursor: pointer;
 }
+
+@media (max-width: 850px) {
+  .mapButton {
+    gap: 8px;
+    padding: 10px 25px;
+  }
+}
